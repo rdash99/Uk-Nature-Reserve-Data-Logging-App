@@ -1,0 +1,15 @@
+Metadata-Version: 1.1
+Name: logstats
+Version: 0.2.1
+Summary: A module to collect and display stats for long running processes
+Home-page: https://github.com/vrde/logstats
+Author: Alberto Granzotto
+Author-email: agranzot@gmail.com
+License: MIT
+Description: For a long description please visit https://github.com/vrde/logstats
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
