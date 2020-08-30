@@ -1,0 +1,4 @@
+#Sun Aug 30 19:32:00 BST 2020
+base.0=C\:\\Users\\rjd99\\PycharmProjects\\Uk-Nature-Reserve-Data-Logging-App\\comSciAlevelNatureReserveApp\\Flutter\\First test\\tutorial1\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
