@@ -6,6 +6,12 @@ class HomeRoute extends StatelessWidget {
     final menus = Column(
       children: <Widget>[
         ListTile(
+          title: Text("Identify"),
+          onTap: () {
+            Navigator.popUntil(context, ModalRoute.withName("/identify"));
+          },
+        ),
+        ListTile(
           title: Text("Logout"),
           onTap: () {
             Navigator.popUntil(context, ModalRoute.withName("/"));
@@ -33,7 +39,7 @@ class HomeRoute extends StatelessWidget {
         child: Text("Hello"),
       ),
       floatingActionButton: FloatingActionButton(
-        child: new Icon(Icons.ac_unit),
+        child: new Icon(Icons.add),
         onPressed: () {},
       ),
     );
