@@ -38,7 +38,7 @@ class _LoginRouteState extends State<LoginRoute> {
       padding: const EdgeInsets.all(16.0),
       child: Material(
         elevation: 5.0,
-        shadowColor: Colors.lime.shade100,
+        shadowColor: Colors.blue.shade100,
         child: MaterialButton(
           minWidth: 200.0,
           height: 48.0,
@@ -46,7 +46,7 @@ class _LoginRouteState extends State<LoginRoute> {
             "LOG IN",
             style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
-          color: Colors.lime,
+          color: Colors.blue,
           onPressed: () {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomeRoute()));
@@ -63,7 +63,7 @@ class _LoginRouteState extends State<LoginRoute> {
           "SIGN UP",
           style: TextStyle(color: Colors.white, fontSize: 16.0),
         ),
-        color: Colors.lime,
+        color: Colors.blue,
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SignUpRoute()));
