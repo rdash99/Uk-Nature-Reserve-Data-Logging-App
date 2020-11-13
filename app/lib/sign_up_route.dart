@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'home_route.dart';
-import 'sign_up_route.dart';
+import 'login_route.dart';
 
-class LoginRoute extends StatefulWidget {
+class SignUpRoute extends StatefulWidget {
   @override
-  State createState() => _LoginRouteState();
+  State createState() => _SignUpRouteState();
 }
 
-class _LoginRouteState extends State<LoginRoute> {
+class _SignUpRouteState extends State<SignUpRoute> {
   @override
   Widget build(BuildContext context) {
     final username = Padding(
@@ -43,38 +42,22 @@ class _LoginRouteState extends State<LoginRoute> {
           minWidth: 200.0,
           height: 48.0,
           child: Text(
-            "LOG IN",
+            "SUBMIT",
             style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
           color: Colors.lime,
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeRoute()));
+                context, MaterialPageRoute(builder: (context) => LoginRoute()));
           },
         ),
-      ),
-    );
-    final signUpButton = Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: MaterialButton(
-        minWidth: 200.0,
-        height: 48.0,
-        child: Text(
-          "SIGN UP",
-          style: TextStyle(color: Colors.white, fontSize: 16.0),
-        ),
-        color: Colors.lime,
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SignUpRoute()));
-        },
       ),
     );
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
-          children: [username, password, submitButton, signUpButton],
+          children: [username, password, submitButton],
         ),
       ),
     );

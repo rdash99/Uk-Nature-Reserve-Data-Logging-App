@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'login_route.dart';
 import 'home_route.dart';
+import 'sign_up_route.dart';
 
 void main() => runApp(new MyApp());
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) => LoginRoute(),
         "/home": (context) => HomeRoute(),
+        "/signup": (context) => SignUpRoute(),
       },
       initialRoute: "/",
     );
