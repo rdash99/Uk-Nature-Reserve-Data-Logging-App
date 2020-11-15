@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'login_route.dart';
-import 'home_route.dart';
-import 'sign_up_route.dart';
-import 'identification_route.dart';
+import 'ui/login_route.dart';
+import 'ui/home_route.dart';
+import 'ui/sign_up_route.dart';
+import 'ui/identification_route.dart';
 
 void main() => runApp(new MyApp());
 

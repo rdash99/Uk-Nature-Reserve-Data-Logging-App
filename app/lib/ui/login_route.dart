@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'home_route.dart';
 import 'sign_up_route.dart';
+import 'package:flutter/cupertino.dart';
 
 class LoginRoute extends StatefulWidget {
   @override
@@ -74,7 +75,12 @@ class _LoginRouteState extends State<LoginRoute> {
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
-          children: [username, password, submitButton, signUpButton],
+          children: [
+            username,
+            password,
+            submitButton,
+            signUpButton,
+          ],
         ),
       ),
     );
