@@ -9,5 +9,28 @@ class IdentificationRoute extends StatefulWidget {
 
 class _IdentificationRouteState extends State<IdentificationRoute> {
   @override
-  Widget build(BuildContext context) {}
+  Widget build(BuildContext context) {
+    final returnButton = Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Material(
+            elevation: 5.0,
+            shadowColor: Colors.blue.shade100,
+            child: MaterialButton(
+                minWidth: 200.0,
+                height: 48.0,
+                child: Text(
+                  "GO BACK",
+                  style: TextStyle(color: Colors.white, fontSize: 16.0),
+                ),
+                color: Colors.blue,
+                onPressed: () {
+                  Navigator.popUntil(context, ModalRoute.withName("/home"));
+                })));
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+            child: ListView(
+          children: [returnButton],
+        )));
+  }
 }
