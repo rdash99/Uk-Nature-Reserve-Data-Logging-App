@@ -33,6 +33,15 @@ class _SignUpRouteState extends State<SignUpRoute> {
         ),
       ),
     );
+    final age = Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextField(
+        decoration: InputDecoration(
+          labelText: "Age",
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(4.0)),
+        ),
+      ),
+    );
     final submitButton = Padding(
       padding: const EdgeInsets.all(16.0),
       child: Material(
@@ -57,7 +66,7 @@ class _SignUpRouteState extends State<SignUpRoute> {
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
-          children: [username, password, submitButton],
+          children: [username, password, age, submitButton],
         ),
       ),
     );
