@@ -10,23 +10,46 @@ class SignUpRoute extends StatefulWidget {
 class _SignUpRouteState extends State<SignUpRoute> {
   @override
   Widget build(BuildContext context) {
-    final username = Padding(
+    final firstName = Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
         decoration: InputDecoration(
-          labelText: "Username",
+          labelText: "First Name",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
         ),
       ),
     );
-    final password = Padding(
+    final lastName = Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextField(
+        decoration: InputDecoration(
+          labelText: "Last Name",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
+      ),
+    );
+    final password1 = Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
         obscureText: true,
         decoration: InputDecoration(
           labelText: "Password",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
+      ),
+    );
+    final password2 = Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextField(
+        obscureText: true,
+        decoration: InputDecoration(
+          labelText: "Re-enter Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
@@ -66,7 +89,14 @@ class _SignUpRouteState extends State<SignUpRoute> {
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
-          children: [username, password, age, submitButton],
+          children: [
+            firstName,
+            lastName,
+            age,
+            password1,
+            password2,
+            submitButton
+          ],
         ),
       ),
     );
