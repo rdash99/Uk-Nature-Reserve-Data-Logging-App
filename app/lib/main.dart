@@ -8,59 +8,43 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
+import 'dart:async';
 
 FirebaseAnalytics analytics;
-
 void main() {
   analytics = FirebaseAnalytics();
-  runApp(App());
+  runApp(MyApp());
 }
 
-class App extends StatefulWidget {
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  bool _intialized = false;
-  bool _error = false;
-
-  void intiializeFlutterFire() async {
-    try {
-      await Firebase.initializeApp();
-      setState(() {
-        _intialized = true;
-      });
-    } catch (e) {
-      setState(() {
-        _error = true;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    intiializeFlutterFire();
-    super.initState();
-  }
+class App extends StatelessWidget {
+  // Create the initialization Future outside of `build`:
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  FirebaseApp MyApp = Firebase.app();
 
   @override
   Widget build(BuildContext context) {
-    if (_error) {
-      return SomethingWentWrong();
-    }
-    if (!_intialized) {
-      return Loading();
-    }
-    return MyApp();
+    return FutureBuilder(
+      //initialise flutterfire
+      future: _initialization,
+      builder: (context, snapshot) {
+        //check for errors
+        if (snapshot.hasError) {
+          return SomethingWentWrong();
+        }
+
+        //once complete, load app
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MyApp();
+        }
+
+        //otherwise show loading screen
+        return Loading();
+      },
+    );
   }
 }
 
-class SomethingWentWrong extends App {
-  @override
-  Widget build(BuildContext context) {
-    return Text("Error! :P");
-  }
-}
+class SomethingWentWrong extends App {}
 
 class Loading extends App {
   @override
@@ -83,9 +67,10 @@ class Loading extends App {
   }
 }
 
+// ignore: must_be_immutable
 class MyApp extends App {
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return new MaterialApp(
       title: 'Flutter Demo',
       theme: new ThemeData(
         primarySwatch: Colors.lime,
