@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "162310674643",
+    "firebase_url": "https://computer-science-alevel-285909.firebaseio.com",
+    "project_id": "computer-science-alevel-285909",
+    "storage_bucket": "computer-science-alevel-285909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162310674643:android:a1dac99ed05579ca1a5c26",
+        "android_client_info": {
+          "package_name": "com.nature.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162310674643-rufq5pt59kittnesrupcosir38f8jf5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_CW4ryIa7H5tlDKOHWgY6jTbLjj6birA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162310674643-rufq5pt59kittnesrupcosir38f8jf5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

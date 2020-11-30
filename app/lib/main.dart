@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'ui/login_route.dart';
@@ -50,7 +52,9 @@ class _AppState extends State<App> {
 
 class SomethingWentWrong extends App {
   @override
-  Widget build(BuildContext context) {}
+  Widget build(BuildContext context) {
+    return Text("Error! :P");
+  }
 }
 
 class Loading extends App {
@@ -68,9 +72,7 @@ class Loading extends App {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: ListView(
-          children: [spinkit],
-        ),
+        child: spinkit,
       ),
     );
   }
@@ -91,6 +93,5 @@ class MyApp extends App {
       },
       initialRoute: "/",
     );
-    ;
   }
 }
