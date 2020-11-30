@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'ui/login_route.dart';
@@ -8,8 +6,15 @@ import 'ui/sign_up_route.dart';
 import 'ui/identification_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 
-void main() => runApp(App());
+FirebaseAnalytics analytics;
+
+void main() {
+  analytics = FirebaseAnalytics();
+  runApp(App());
+}
 
 class App extends StatefulWidget {
   _AppState createState() => _AppState();
@@ -80,7 +85,7 @@ class Loading extends App {
 
 class MyApp extends App {
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
       theme: new ThemeData(
         primarySwatch: Colors.lime,
