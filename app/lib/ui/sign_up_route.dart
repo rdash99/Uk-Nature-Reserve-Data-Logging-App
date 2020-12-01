@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'login_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class SignUpRoute extends StatefulWidget {
   @override
@@ -8,6 +11,8 @@ class SignUpRoute extends StatefulWidget {
 }
 
 class _SignUpRouteState extends State<SignUpRoute> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final firstName = Padding(
@@ -78,9 +83,21 @@ class _SignUpRouteState extends State<SignUpRoute> {
             style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
           color: Colors.lime,
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LoginRoute()));
+          onPressed: () async {
+            try {
+              UserCredential userCredential = await FirebaseAuth.instance
+                  .createUserWithEmailAndPassword(
+                      email: "barry.allen@example.com",
+                      password: "SuperSecretPassword!");
+            } on FirebaseAuthException catch (e) {
+              if (e.code == 'weak-password') {
+                print('The password provided is too weak.');
+              } else if (e.code == 'email-already-in-use') {
+                print('The account already exists for that email.');
+              }
+            } catch (e) {
+              print(e);
+            }
           },
         ),
       ),
