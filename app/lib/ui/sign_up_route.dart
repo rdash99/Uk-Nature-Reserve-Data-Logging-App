@@ -17,7 +17,7 @@ class _SignUpRouteState extends State<SignUpRoute> {
   @override
   Widget build(BuildContext context) {
     //create email input
-    final email = Padding(
+    final inputEmail = Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
         decoration: InputDecoration(
@@ -77,7 +77,7 @@ class _SignUpRouteState extends State<SignUpRoute> {
       body: Center(
         child: ListView(
           children: [
-            email,
+            inputEmail,
             password,
             signUpButton,
           ],
