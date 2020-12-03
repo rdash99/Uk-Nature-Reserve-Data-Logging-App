@@ -41,7 +41,6 @@ dependencies:
   
   #analytics
   firebase_analytics: ^6.2.0
-  
   firebase_performance: ^0.4.2
 
 dev_dependencies:
