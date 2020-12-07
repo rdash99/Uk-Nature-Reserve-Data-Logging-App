@@ -43,6 +43,13 @@ dependencies:
   firebase_analytics: ^6.2.0
   firebase_performance: ^0.4.2
 
+  #validation
+  email_validator: ^1.0.4
+
+  #error display
+  flash: ^1.2.0
+  fluttertoast: ^7.1.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

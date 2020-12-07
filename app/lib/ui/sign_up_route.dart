@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'login_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:app/Global variables/GlobalData.dart' as Globals;
+import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'home_route.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flash/flash.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -32,13 +35,17 @@ class _SignUpRouteState extends State<SignUpRoute> {
       child: TextFormField(
         controller: _controller,
         decoration: InputDecoration(
-          labelText: "Username",
+          labelText: "Email",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
         ),
         onChanged: (text) {
-          Globals.GlobalData.email = text;
+          if (EmailValidator.validate(text) == true) {
+            Globals.GlobalData.email = text;
+          } else {
+            print('invalid email');
+          }
         },
       ),
     );
@@ -74,7 +81,7 @@ class _SignUpRouteState extends State<SignUpRoute> {
           if (Globals.GlobalData.password_1 == Globals.GlobalData.password_2) {
             Globals.GlobalData.password = Globals.GlobalData.password_2;
           } else {
-            return Text('Passwords do not match!');
+            print('Passwords do not match!');
           }
         },
       ),
@@ -92,6 +99,9 @@ class _SignUpRouteState extends State<SignUpRoute> {
         color: Colors.blue,
         //attempt to create account
         onPressed: () async {
+          setState(() {
+            _controller.text.isEmpty ? _validate = true : _validate = false;
+          });
           try {
             UserCredential userCredential = await FirebaseAuth.instance
                 .createUserWithEmailAndPassword(
