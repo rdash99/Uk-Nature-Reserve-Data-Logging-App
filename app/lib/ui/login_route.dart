@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'home_route.dart';
 import 'sign_up_route.dart';
+import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:email_validator/email_validator.dart';
 
 class LoginRoute extends StatefulWidget {
   @override
@@ -10,22 +13,62 @@ class LoginRoute extends StatefulWidget {
 }
 
 class _LoginRouteState extends State<LoginRoute> {
+  final _controller = TextEditingController();
+  bool _validate = false;
+  bool _isVisible1 = false;
+  bool _isVisible2 = false;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void showMail() {
+    setState(() {
+      _isVisible1 = !_isVisible1;
+    });
+  }
+
+  @override
+  void showPass() {
+    setState(() {
+      _isVisible2 = !_isVisible2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final username = Padding(
+    //create email input
+    final inputEmail = Padding(
       padding: const EdgeInsets.all(16.0),
-      child: TextField(
+      child: TextFormField(
         decoration: InputDecoration(
-          labelText: "Username",
+          labelText: "Email",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4.0),
           ),
         ),
+        onChanged: (text) {
+          if (EmailValidator.validate(text) == true) {
+            Globals.GlobalData.email = text;
+          } else {}
+        },
       ),
     );
-    final password = Padding(
+
+    // show error
+    final emailError = Visibility(
+        visible: _isVisible1,
+        child: Center(
+            child: Text('No user exists with that email!',
+                style: TextStyle(color: Colors.red, fontSize: 16.0))));
+
+    //create password input
+    final passwordInput = Padding(
       padding: const EdgeInsets.all(16.0),
-      child: TextField(
+      child: TextFormField(
         obscureText: true,
         decoration: InputDecoration(
           labelText: "Password",
@@ -33,28 +76,19 @@ class _LoginRouteState extends State<LoginRoute> {
             borderRadius: BorderRadius.circular(4.0),
           ),
         ),
+        onChanged: (text) {
+          Globals.GlobalData.password = text;
+        },
       ),
     );
-    final submitButton = Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Material(
-        elevation: 5.0,
-        shadowColor: Colors.blue.shade100,
-        child: MaterialButton(
-          minWidth: 200.0,
-          height: 48.0,
-          child: Text(
-            "LOG IN",
-            style: TextStyle(color: Colors.white, fontSize: 16.0),
-          ),
-          color: Colors.blue,
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeRoute()));
-          },
-        ),
-      ),
-    );
+    // show error
+    final passwordError = Visibility(
+        visible: _isVisible2,
+        child: Center(
+            child: Text('Incorrect password!',
+                style: TextStyle(color: Colors.red, fontSize: 16.0))));
+
+    //create submission button
     final signUpButton = Padding(
       padding: const EdgeInsets.all(16.0),
       child: MaterialButton(
@@ -65,21 +99,68 @@ class _LoginRouteState extends State<LoginRoute> {
           style: TextStyle(color: Colors.white, fontSize: 16.0),
         ),
         color: Colors.blue,
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SignUpRoute()));
+        //attempt to create account
+        onPressed: () async {
+          setState(() {
+            _controller.text.isEmpty ? _validate = true : _validate = false;
+          });
+          try {
+            UserCredential userCredential = await FirebaseAuth.instance
+                .signInWithEmailAndPassword(
+                    email: Globals.GlobalData.email,
+                    password: Globals.GlobalData.password);
+            //clear stored data on successful submission
+            Globals.GlobalData.email = '';
+            Globals.GlobalData.password = '';
+            // go to home screen
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeRoute()));
+          } on FirebaseAuthException catch (e) {
+            if (e.code == 'user-not-found') {
+              print('No user found for that email.');
+              showMail();
+            } else if (e.code == 'wrong-password.') {
+              print('Incorrect password!');
+              showPass();
+            }
+          } catch (e) {
+            print(e);
+          }
         },
       ),
     );
+    final homeButton = Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Material(
+        elevation: 5.0,
+        shadowColor: Colors.blue.shade100,
+        child: MaterialButton(
+          minWidth: 200.0,
+          height: 48.0,
+          child: Text(
+            "Go Back",
+            style: TextStyle(color: Colors.white, fontSize: 16.0),
+          ),
+          color: Colors.blue,
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeRoute()));
+          },
+        ),
+      ),
+    );
+    //display page
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
           children: [
-            username,
-            password,
-            submitButton,
+            inputEmail,
+            emailError,
+            passwordInput,
+            passwordError,
             signUpButton,
+            homeButton,
           ],
         ),
       ),

@@ -20,6 +20,8 @@ class SignUpRoute extends StatefulWidget {
 class _SignUpRouteState extends State<SignUpRoute> {
   final _controller = TextEditingController();
   bool _validate = false;
+  bool _isVisible1 = true;
+  bool _isVisible2 = true;
 
   @override
   void dispose() {
@@ -28,12 +30,25 @@ class _SignUpRouteState extends State<SignUpRoute> {
   }
 
   @override
+  void showMail() {
+    setState(() {
+      _isVisible1 = !_isVisible1;
+    });
+  }
+
+  @override
+  void showPass() {
+    setState(() {
+      _isVisible2 = !_isVisible2;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     //create email input
     final inputEmail = Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextFormField(
-        controller: _controller,
         decoration: InputDecoration(
           labelText: "Email",
           border: OutlineInputBorder(
@@ -43,12 +58,21 @@ class _SignUpRouteState extends State<SignUpRoute> {
         onChanged: (text) {
           if (EmailValidator.validate(text) == true) {
             Globals.GlobalData.email = text;
-          } else {
-            print('invalid email');
-          }
+            showMail();
+          } else if (EmailValidator.validate(text) == false) {
+            _isVisible1 = true;
+          } else {}
         },
       ),
     );
+
+    // show error
+    final emailInputError = Visibility(
+        visible: _isVisible1,
+        child: Center(
+            child: Text('Invalid email!',
+                style: TextStyle(color: Colors.red, fontSize: 16.0))));
+
     //create first password input
     final passwordInput1 = Padding(
       padding: const EdgeInsets.all(16.0),
@@ -65,6 +89,7 @@ class _SignUpRouteState extends State<SignUpRoute> {
         },
       ),
     );
+
     //create second password input
     final passwordInput2 = Padding(
       padding: const EdgeInsets.all(16.0),
@@ -80,12 +105,21 @@ class _SignUpRouteState extends State<SignUpRoute> {
           Globals.GlobalData.password_2 = text;
           if (Globals.GlobalData.password_1 == Globals.GlobalData.password_2) {
             Globals.GlobalData.password = Globals.GlobalData.password_2;
+            showPass();
           } else {
-            print('Passwords do not match!');
+            _isVisible2 = true;
           }
         },
       ),
     );
+
+    // show error
+    final passwordMatchError = Visibility(
+        visible: _isVisible2,
+        child: Center(
+            child: Text('Passwords do not match!',
+                style: TextStyle(color: Colors.red, fontSize: 16.0))));
+
     //create submission button
     final signUpButton = Padding(
       padding: const EdgeInsets.all(16.0),
@@ -112,6 +146,9 @@ class _SignUpRouteState extends State<SignUpRoute> {
             Globals.GlobalData.password_1 = '';
             Globals.GlobalData.password_2 = '';
             Globals.GlobalData.password = '';
+            // go to home screen
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeRoute()));
           } on FirebaseAuthException catch (e) {
             if (e.code == 'weak-password') {
               print('The password provided is too weak.');
@@ -151,8 +188,10 @@ class _SignUpRouteState extends State<SignUpRoute> {
         child: ListView(
           children: [
             inputEmail,
+            emailInputError,
             passwordInput1,
             passwordInput2,
+            passwordMatchError,
             signUpButton,
             homeButton,
           ],
