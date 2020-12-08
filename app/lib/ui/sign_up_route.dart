@@ -157,11 +157,13 @@ class _SignUpRouteState extends State<SignUpRoute> {
               print('The password provided is too weak.');
               setState(() {
                 _isVisible3 = true;
+                _isVisible4 = false;
               });
             } else if (e.code == 'email-already-in-use') {
               print('An account already exists for that email.');
               setState(() {
                 _isVisible4 = true;
+                _isVisible3 = false;
               });
             }
           } catch (e) {

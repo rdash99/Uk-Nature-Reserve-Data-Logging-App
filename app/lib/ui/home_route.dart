@@ -28,8 +28,8 @@ class _HomeRouteState extends State<HomeRoute> {
           visible: _isVisible1,
           child: ListTile(
             title: Text("Logout"),
-            onTap: () {
-              Navigator.popUntil(context, ModalRoute.withName("/"));
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
             },
           ),
         ),
