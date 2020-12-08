@@ -25,20 +25,6 @@ class _LoginRouteState extends State<LoginRoute> {
   }
 
   @override
-  void showMail() {
-    setState(() {
-      _isVisible1 = !_isVisible1;
-    });
-  }
-
-  @override
-  void showPass() {
-    setState(() {
-      _isVisible2 = !_isVisible2;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     //create email input
     final inputEmail = Padding(
@@ -62,7 +48,8 @@ class _LoginRouteState extends State<LoginRoute> {
     final emailError = Visibility(
         visible: _isVisible1,
         child: Center(
-            child: Text('No user exists with that email!',
+            child: Text(
+                'No user exists with that email, do you want to sign up?',
                 style: TextStyle(color: Colors.red, fontSize: 16.0))));
 
     //create password input
@@ -81,6 +68,7 @@ class _LoginRouteState extends State<LoginRoute> {
         },
       ),
     );
+
     // show error
     final passwordError = Visibility(
         visible: _isVisible2,
@@ -89,13 +77,13 @@ class _LoginRouteState extends State<LoginRoute> {
                 style: TextStyle(color: Colors.red, fontSize: 16.0))));
 
     //create submission button
-    final signUpButton = Padding(
+    final loginButton = Padding(
       padding: const EdgeInsets.all(16.0),
       child: MaterialButton(
         minWidth: 200.0,
         height: 48.0,
         child: Text(
-          "SIGN UP",
+          "LOGIN",
           style: TextStyle(color: Colors.white, fontSize: 16.0),
         ),
         color: Colors.blue,
@@ -109,19 +97,22 @@ class _LoginRouteState extends State<LoginRoute> {
                 .signInWithEmailAndPassword(
                     email: Globals.GlobalData.email,
                     password: Globals.GlobalData.password);
-            //clear stored data on successful submission
-            Globals.GlobalData.email = '';
-            Globals.GlobalData.password = '';
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomeRoute()));
           } on FirebaseAuthException catch (e) {
             if (e.code == 'user-not-found') {
               print('No user found for that email.');
-              showMail();
+              setState(() {
+                _isVisible1 = true;
+                _isVisible2 = false;
+              });
             } else if (e.code == 'wrong-password.') {
               print('Incorrect password!');
-              showPass();
+              setState(() {
+                _isVisible2 = true;
+                _isVisible1 = false;
+              });
             }
           } catch (e) {
             print(e);
@@ -129,6 +120,32 @@ class _LoginRouteState extends State<LoginRoute> {
         },
       ),
     );
+
+    //create link to sign up page
+    final signUpButton = Visibility(
+        visible: _isVisible1,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Material(
+            elevation: 5.0,
+            shadowColor: Colors.blue.shade100,
+            child: MaterialButton(
+              minWidth: 200.0,
+              height: 48.0,
+              child: Text(
+                "SIGN UP",
+                style: TextStyle(color: Colors.white, fontSize: 16.0),
+              ),
+              color: Colors.blue,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignUpRoute()));
+              },
+            ),
+          ),
+        ));
+
+    //create back button
     final homeButton = Padding(
       padding: const EdgeInsets.all(16.0),
       child: Material(
@@ -159,6 +176,7 @@ class _LoginRouteState extends State<LoginRoute> {
             emailError,
             passwordInput,
             passwordError,
+            loginButton,
             signUpButton,
             homeButton,
           ],

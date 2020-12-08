@@ -7,8 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'home_route.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:flash/flash.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -20,27 +18,15 @@ class SignUpRoute extends StatefulWidget {
 class _SignUpRouteState extends State<SignUpRoute> {
   final _controller = TextEditingController();
   bool _validate = false;
-  bool _isVisible1 = true;
-  bool _isVisible2 = true;
+  bool _isVisible1 = false;
+  bool _isVisible2 = false;
+  bool _isVisible3 = false;
+  bool _isVisible4 = false;
 
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-
-  @override
-  void showMail() {
-    setState(() {
-      _isVisible1 = !_isVisible1;
-    });
-  }
-
-  @override
-  void showPass() {
-    setState(() {
-      _isVisible2 = !_isVisible2;
-    });
   }
 
   @override
@@ -58,10 +44,14 @@ class _SignUpRouteState extends State<SignUpRoute> {
         onChanged: (text) {
           if (EmailValidator.validate(text) == true) {
             Globals.GlobalData.email = text;
-            showMail();
-          } else if (EmailValidator.validate(text) == false) {
-            _isVisible1 = true;
-          } else {}
+            setState(() {
+              _isVisible1 = false;
+            });
+          } else {
+            setState(() {
+              _isVisible1 = true;
+            });
+          }
         },
       ),
     );
@@ -71,6 +61,13 @@ class _SignUpRouteState extends State<SignUpRoute> {
         visible: _isVisible1,
         child: Center(
             child: Text('Invalid email!',
+                style: TextStyle(color: Colors.red, fontSize: 16.0))));
+    // show error
+    final alreadyExistsError = Visibility(
+        visible: _isVisible4,
+        child: Center(
+            child: Text(
+                'An account already exists for that email, would you like to login?',
                 style: TextStyle(color: Colors.red, fontSize: 16.0))));
 
     //create first password input
@@ -105,19 +102,30 @@ class _SignUpRouteState extends State<SignUpRoute> {
           Globals.GlobalData.password_2 = text;
           if (Globals.GlobalData.password_1 == Globals.GlobalData.password_2) {
             Globals.GlobalData.password = Globals.GlobalData.password_2;
-            showPass();
+            setState(() {
+              _isVisible2 = false;
+            });
           } else {
-            _isVisible2 = true;
+            setState(() {
+              _isVisible2 = true;
+            });
           }
         },
       ),
     );
 
-    // show error
+    // password validation error
     final passwordMatchError = Visibility(
         visible: _isVisible2,
         child: Center(
             child: Text('Passwords do not match!',
+                style: TextStyle(color: Colors.red, fontSize: 16.0))));
+
+// weak password error
+    final weakPasswordError = Visibility(
+        visible: _isVisible3,
+        child: Center(
+            child: Text('The password provided is too weak',
                 style: TextStyle(color: Colors.red, fontSize: 16.0))));
 
     //create submission button
@@ -141,19 +149,20 @@ class _SignUpRouteState extends State<SignUpRoute> {
                 .createUserWithEmailAndPassword(
                     email: Globals.GlobalData.email,
                     password: Globals.GlobalData.password);
-            //clear stored data on successful submission
-            Globals.GlobalData.email = '';
-            Globals.GlobalData.password_1 = '';
-            Globals.GlobalData.password_2 = '';
-            Globals.GlobalData.password = '';
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomeRoute()));
           } on FirebaseAuthException catch (e) {
             if (e.code == 'weak-password') {
               print('The password provided is too weak.');
+              setState(() {
+                _isVisible3 = true;
+              });
             } else if (e.code == 'email-already-in-use') {
               print('An account already exists for that email.');
+              setState(() {
+                _isVisible4 = true;
+              });
             }
           } catch (e) {
             print(e);
@@ -161,6 +170,8 @@ class _SignUpRouteState extends State<SignUpRoute> {
         },
       ),
     );
+
+    //create home button
     final homeButton = Padding(
       padding: const EdgeInsets.all(16.0),
       child: Material(
@@ -181,6 +192,31 @@ class _SignUpRouteState extends State<SignUpRoute> {
         ),
       ),
     );
+
+    // create login page link button
+    final loginButton = Visibility(
+        visible: _isVisible4,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Material(
+            elevation: 5.0,
+            shadowColor: Colors.blue.shade100,
+            child: MaterialButton(
+              minWidth: 200.0,
+              height: 48.0,
+              child: Text(
+                "LOGIN",
+                style: TextStyle(color: Colors.white, fontSize: 16.0),
+              ),
+              color: Colors.blue,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginRoute()));
+              },
+            ),
+          ),
+        ));
+
     //display page
     return Scaffold(
       backgroundColor: Colors.white,
@@ -189,10 +225,13 @@ class _SignUpRouteState extends State<SignUpRoute> {
           children: [
             inputEmail,
             emailInputError,
+            alreadyExistsError,
             passwordInput1,
             passwordInput2,
             passwordMatchError,
+            weakPasswordError,
             signUpButton,
+            loginButton,
             homeButton,
           ],
         ),
