@@ -1,3 +1,4 @@
+import 'package:app/ui/login_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:html';
@@ -39,7 +40,8 @@ class _HomeRouteState extends State<HomeRoute> {
           child: ListTile(
             title: Text("Login"),
             onTap: () {
-              Navigator.popUntil(context, ModalRoute.withName("/"));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginRoute()));
             },
           ),
         ),
