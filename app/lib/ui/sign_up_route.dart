@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'home_route.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -31,6 +32,36 @@ class _SignUpRouteState extends State<SignUpRoute> {
 
   @override
   Widget build(BuildContext context) {
+    //create first name input
+    final firstName = Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextFormField(
+          decoration: InputDecoration(
+            labelText: "First name",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+          ),
+          onChanged: (text) {
+            Globals.GlobalData.firstName = text;
+          }),
+    );
+
+    //create second name input
+    final surname = Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextFormField(
+          decoration: InputDecoration(
+            labelText: "Surname",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+          ),
+          onChanged: (text) {
+            Globals.GlobalData.surname = text;
+          }),
+    );
+
     //create email input
     final inputEmail = Padding(
       padding: const EdgeInsets.all(16.0),
@@ -227,6 +258,8 @@ class _SignUpRouteState extends State<SignUpRoute> {
           children: [
             inputEmail,
             emailInputError,
+            firstName,
+            surname,
             alreadyExistsError,
             passwordInput1,
             passwordInput2,

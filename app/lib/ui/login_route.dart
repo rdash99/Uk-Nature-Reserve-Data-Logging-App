@@ -104,14 +104,14 @@ class _LoginRouteState extends State<LoginRoute> {
             if (e.code == 'user-not-found') {
               print('No user found for that email.');
               setState(() {
-                _isVisible1 = true;
-                _isVisible2 = false;
+                _isVisible1 = false;
+                _isVisible2 = true;
               });
             } else if (e.code == 'wrong-password.') {
               print('Incorrect password!');
               setState(() {
-                _isVisible2 = true;
-                _isVisible1 = false;
+                _isVisible2 = false;
+                _isVisible1 = true;
               });
             }
           } catch (e) {
@@ -123,7 +123,7 @@ class _LoginRouteState extends State<LoginRoute> {
 
     //create link to sign up page
     final signUpButton = Visibility(
-        visible: _isVisible1,
+        visible: _isVisible2,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Material(
@@ -141,6 +141,27 @@ class _LoginRouteState extends State<LoginRoute> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SignUpRoute()));
               },
+            ),
+          ),
+        ));
+
+    //create forgot password button
+    final forgotButton = Visibility(
+        visible: _isVisible1,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Material(
+            elevation: 5.0,
+            shadowColor: Colors.blue.shade100,
+            child: MaterialButton(
+              minWidth: 200.0,
+              height: 48.0,
+              child: Text(
+                "Forgottten password?",
+                style: TextStyle(color: Colors.white, fontSize: 16.0),
+              ),
+              color: Colors.blue,
+              onPressed: () {},
             ),
           ),
         ));
@@ -177,6 +198,7 @@ class _LoginRouteState extends State<LoginRoute> {
             passwordInput,
             passwordError,
             loginButton,
+            forgotButton,
             signUpButton,
             homeButton,
           ],

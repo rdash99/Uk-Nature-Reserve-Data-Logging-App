@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 
 class HomeRoute extends StatefulWidget {
   @override
@@ -47,7 +48,12 @@ class _HomeRouteState extends State<HomeRoute> {
         ),
       ],
     );
-    FirebaseAuth.instance.authStateChanges().listen((User user) {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    if (auth.currentUser != null) {
+      Globals.GlobalData.userID = auth.currentUser.uid;
+      print(auth.currentUser.uid);
+    }
+    FirebaseAuth.instance.userChanges().listen((User user) {
       if (user == null) {
         setState(() {
           _isVisible2 = true;

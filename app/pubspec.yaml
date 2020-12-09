@@ -46,9 +46,8 @@ dependencies:
   #validation
   email_validator: ^1.0.4
 
-  #error display
-  flash: ^1.2.0
-  fluttertoast: ^7.1.5
+  #storage
+  cloud_firestore: ^0.14.4
 
 dev_dependencies:
   flutter_test:
