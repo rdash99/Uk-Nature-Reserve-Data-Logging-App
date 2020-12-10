@@ -46,7 +46,7 @@ class _LoginRouteState extends State<LoginRoute> {
 
     // show error
     final emailError = Visibility(
-        visible: _isVisible1,
+        visible: _isVisible2,
         child: Center(
             child: Text(
                 'No user exists with that email, do you want to sign up?',
@@ -71,7 +71,7 @@ class _LoginRouteState extends State<LoginRoute> {
 
     // show error
     final passwordError = Visibility(
-        visible: _isVisible2,
+        visible: _isVisible1,
         child: Center(
             child: Text('Incorrect password!',
                 style: TextStyle(color: Colors.red, fontSize: 16.0))));

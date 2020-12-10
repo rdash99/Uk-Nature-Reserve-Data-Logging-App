@@ -51,7 +51,7 @@ class _HomeRouteState extends State<HomeRoute> {
     FirebaseAuth auth = FirebaseAuth.instance;
     if (auth.currentUser != null) {
       Globals.GlobalData.userID = auth.currentUser.uid;
-      print(auth.currentUser.uid);
+      //print(auth.currentUser.uid);
     }
     FirebaseAuth.instance.userChanges().listen((User user) {
       if (user == null) {

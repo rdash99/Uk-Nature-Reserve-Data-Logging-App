@@ -32,6 +32,19 @@ class _SignUpRouteState extends State<SignUpRoute> {
 
   @override
   Widget build(BuildContext context) {
+    //store user data
+    CollectionReference users = FirebaseFirestore.instance.collection('Users');
+    Future<void> addUser() {
+      return users
+          .add({
+            'First_name': Globals.GlobalData.firstName,
+            'surname': Globals.GlobalData.surname,
+            'UserId': Globals.GlobalData.userID
+          })
+          .then((value) => print("User Added"))
+          .catchError((error) => print("Failed to add user: $error"));
+    }
+
     //create first name input
     final firstName = Padding(
       padding: const EdgeInsets.all(16.0),
@@ -93,6 +106,7 @@ class _SignUpRouteState extends State<SignUpRoute> {
         child: Center(
             child: Text('Invalid email!',
                 style: TextStyle(color: Colors.red, fontSize: 16.0))));
+
     // show error
     final alreadyExistsError = Visibility(
         visible: _isVisible4,
@@ -180,6 +194,9 @@ class _SignUpRouteState extends State<SignUpRoute> {
                 .createUserWithEmailAndPassword(
                     email: Globals.GlobalData.email,
                     password: Globals.GlobalData.password);
+
+            Globals.GlobalData.userID = auth.currentUser.uid;
+            addUser();
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomeRoute()));

@@ -6,6 +6,7 @@ import 'ui/sign_up_route.dart';
 import 'ui/identification_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseAnalytics analytics;
 Future<void> main() async {
