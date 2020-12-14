@@ -6,6 +6,7 @@ import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class LoginRoute extends StatefulWidget {
   @override

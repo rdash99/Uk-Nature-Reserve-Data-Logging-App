@@ -28,7 +28,7 @@ class App extends StatelessWidget {
         "/signup": (context) => SignUpRoute(),
         "/identify": (context) => IdentificationRoute(),
       },
-      initialRoute: "/",
+      initialRoute: "/home",
     );
   }
 }
