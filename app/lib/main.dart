@@ -20,7 +20,7 @@ class App extends StatelessWidget {
     return new MaterialApp(
       title: 'Flutter Demo',
       theme: new ThemeData(
-        primarySwatch: Colors.lime,
+        primarySwatch: Colors.blue,
       ),
       routes: {
         "/": (context) => LoginRoute(),
