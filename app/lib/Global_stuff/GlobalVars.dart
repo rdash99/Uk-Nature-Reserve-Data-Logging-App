@@ -7,5 +7,5 @@ class GlobalData {
   static var firstName = '';
   static var surname = '';
   static bool add_visible = true;
-  static var dropdownValue = 'Butterflies',
+  static var dropdownValue = 'Butterflies';
 }
