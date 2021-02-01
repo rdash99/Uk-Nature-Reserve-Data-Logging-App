@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'add_sightings_page.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 
 class HomeRoute extends StatefulWidget {
@@ -87,7 +88,10 @@ class _HomeRouteState extends State<HomeRoute> {
       ),
       floatingActionButton: FloatingActionButton(
         child: new Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddSightingsRoute()));
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
