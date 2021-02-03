@@ -4,6 +4,7 @@ import 'ui/login_route.dart';
 import 'ui/home_route.dart';
 import 'ui/sign_up_route.dart';
 import 'ui/identification_route.dart';
+import 'ui/add_sightings_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,6 +28,7 @@ class App extends StatelessWidget {
         "/home": (context) => HomeRoute(),
         "/signup": (context) => SignUpRoute(),
         "/identify": (context) => IdentificationRoute(),
+        "/add": (context) => AddSightingsRoute(),
       },
       initialRoute: "/home",
     );

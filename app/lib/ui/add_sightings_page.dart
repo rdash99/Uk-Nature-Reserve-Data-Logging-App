@@ -14,24 +14,46 @@ class AddSightingsRoute extends StatefulWidget {
 
 class _AddSightingsRouteState extends State<AddSightingsRoute> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  bool bird_visible = true;
+  bool butterfly_visible = true;
+  var dropdownValue = 'Butterflies';
+
+  var butterfly_list = FirebaseFirestore.instance
+      .collection('Species')
+      .doc('Butterflies')
+      .collection('Butterflies')
+      .get()
+      .then((querySnapshot) {
+    querySnapshot.docs.forEach((result) {
+      print(result.data());
+    });
+  });
+
   @override
   Widget build(BuildContext context) {
     final SelectionOptions = Padding(
         padding: const EdgeInsets.all(16.0),
-        child: DropdownButton(
-          value: Globals.GlobalData.dropdownValue,
+        child: DropdownButtonFormField(
+          value: dropdownValue,
           icon: Icon(Icons.arrow_downward),
           iconSize: 24,
           elevation: 16,
           style: TextStyle(color: Colors.deepPurple),
-          underline: Container(
-            height: 2,
-            color: Colors.blue,
-          ),
           onChanged: (String newValue) {
             setState(() {
-              Globals.GlobalData.dropdownValue = newValue;
+              dropdownValue = newValue;
             });
+            if (newValue == 'Butterflies') {
+              setState(() {
+                butterfly_visible = true;
+                bird_visible = false;
+              });
+            } else {
+              setState(() {
+                bird_visible = true;
+                butterfly_visible = false;
+              });
+            }
           },
           items: <String>['Butterflies', 'Birds']
               .map<DropdownMenuItem<String>>((String value) {
@@ -41,20 +63,51 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
             );
           }).toList(),
         ));
+
+    final SubmitButtonBird = Visibility(
+        visible: bird_visible,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: MaterialButton(
+            minWidth: 200.0,
+            height: 48.0,
+            child: Text(
+              "Submit bird",
+              style: TextStyle(color: Colors.white, fontSize: 16.0),
+            ),
+            onPressed: () {},
+            color: Colors.blue,
+          ),
+        ));
+
+    final SubmitButtonButterfly = Visibility(
+        visible: butterfly_visible,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: MaterialButton(
+            minWidth: 200.0,
+            height: 48.0,
+            child: Text(
+              "Submit butterfly",
+              style: TextStyle(color: Colors.white, fontSize: 16.0),
+            ),
+            onPressed: () {},
+            color: Colors.blue,
+          ),
+        ));
+
+//display page
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: ListView(
+          children: [
+            SelectionOptions,
+            SubmitButtonButterfly,
+            SubmitButtonBird,
+          ],
+        ),
+      ),
+    );
   }
 }
-
-final SubmitButton = Visibility(
-    visible: Globals.GlobalData.add_visible,
-    child: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: MaterialButton(
-        minWidth: 200.0,
-        height: 48.0,
-        child: Text(
-          "Submit",
-          style: TextStyle(color: Colors.white, fontSize: 16.0),
-        ),
-        color: Colors.blue,
-      ),
-    ));
