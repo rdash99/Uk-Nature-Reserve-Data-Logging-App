@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:app/ui/home_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   bool butterfly_visible = true;
   var dropdownValue = 'Butterflies';
 
-  var butterfly_list = FirebaseFirestore.instance
+  /* var butterfly_list = FirebaseFirestore.instance
       .collection('Species')
       .doc('Butterflies')
       .collection('Butterflies')
@@ -27,7 +29,22 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
     querySnapshot.docs.forEach((result) {
       print(result.data());
     });
-  });
+  }); */
+  @override
+  Void check() {
+    if (dropdownValue == 'Butterflies') {
+      setState(() {
+        butterfly_visible = true;
+        bird_visible = false;
+      });
+      if (dropdownValue == 'Birds') {
+        setState(() {
+          bird_visible = true;
+          butterfly_visible = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
