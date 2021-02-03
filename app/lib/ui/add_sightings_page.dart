@@ -16,6 +16,10 @@ class AddSightingsRoute extends StatefulWidget {
 
 class _AddSightingsRouteState extends State<AddSightingsRoute> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  String eng_Name;
+  String latin_Name;
+  var location;
   bool bird_visible = true;
   bool butterfly_visible = true;
   var dropdownValue = 'Butterflies';
@@ -48,6 +52,17 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
 
   @override
   Widget build(BuildContext context) {
+    // create a collection reference
+    CollectionReference Butterfly_Sightings =
+        FirebaseFirestore.instance.collection('Butterfly_Sightings');
+
+    Future<void> addButterfly() {
+      // Call the Butterfly_Sightings' CollectionReference to add a new document
+      return Butterfly_Sightings.add({})
+          .then((value) => print("Butterfly Added"))
+          .catchError((error) => print("Failed to add Butterfly: $error"));
+    }
+
     final SelectionOptions = Padding(
         padding: const EdgeInsets.all(16.0),
         child: DropdownButtonFormField(
