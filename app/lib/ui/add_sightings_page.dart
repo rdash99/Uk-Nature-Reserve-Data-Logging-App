@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:app/ui/home_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +32,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
       print(result.data());
     });
   }); */
-  @override
-  Void check() {
+  check() {
     if (dropdownValue == 'Butterflies') {
       setState(() {
         butterfly_visible = true;
@@ -74,18 +71,8 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           onChanged: (String newValue) {
             setState(() {
               dropdownValue = newValue;
+              check();
             });
-            if (newValue == 'Butterflies') {
-              setState(() {
-                butterfly_visible = true;
-                bird_visible = false;
-              });
-            } else {
-              setState(() {
-                bird_visible = true;
-                butterfly_visible = false;
-              });
-            }
           },
           items: <String>['Butterflies', 'Birds']
               .map<DropdownMenuItem<String>>((String value) {
