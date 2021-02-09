@@ -6,4 +6,5 @@ class GlobalData {
   static var userID = '';
   static var firstName = '';
   static var surname = '';
+  static var butterBird = '';
 }

@@ -21,6 +21,8 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   bool bird_visible = true;
   bool butterfly_visible = true;
   var dropdownValue = 'Butterflies';
+  var dropdownValue1 = 'Butterflies';
+  var dropdownValue2 = 'Birds';
 
   /* var butterfly_list = FirebaseFirestore.instance
       .collection('Species')
@@ -33,12 +35,12 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
     });
   }); */
   check() {
-    if (dropdownValue == 'Butterflies') {
+    if (Globals.GlobalData.butterBird == 'Butterflies') {
       setState(() {
         butterfly_visible = true;
         bird_visible = false;
       });
-      if (dropdownValue == 'Birds') {
+      if (Globals.GlobalData.butterBird == 'Birds') {
         setState(() {
           bird_visible = true;
           butterfly_visible = false;
@@ -49,6 +51,11 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
 
   @override
   Widget build(BuildContext context) {
+    /* setState(() {
+      Globals.GlobalData.butterBird = 'Butterflies';
+      check();
+    }); */
+
     // create a collection reference
     CollectionReference Butterfly_Sightings =
         FirebaseFirestore.instance.collection('Butterfly_Sightings');
@@ -59,6 +66,10 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           .then((value) => print("Butterfly Added"))
           .catchError((error) => print("Failed to add Butterfly: $error"));
     }
+
+    final titleSelector1 = Center(
+        child: Text('Select animal group',
+            style: TextStyle(color: Colors.blue, fontSize: 16.0)));
 
     final SelectionOptions = Padding(
         padding: const EdgeInsets.all(16.0),
@@ -71,11 +82,66 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           onChanged: (String newValue) {
             setState(() {
               dropdownValue = newValue;
+              Globals.GlobalData.butterBird = dropdownValue;
               check();
             });
           },
           items: <String>['Butterflies', 'Birds']
               .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ));
+
+    final titleSelector2 = Center(
+        child: Text('Select butterfly species',
+            style: TextStyle(color: Colors.blue, fontSize: 16.0)));
+
+    final ButterflySpeciesSelect = Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: DropdownButtonFormField(
+          value: dropdownValue1,
+          icon: Icon(Icons.arrow_downward),
+          iconSize: 24,
+          elevation: 16,
+          style: TextStyle(color: Colors.deepPurple),
+          onChanged: (String newValue) {
+            setState(() {
+              dropdownValue1 = newValue;
+              check();
+            });
+          },
+          items: <String>['Butterflies']
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ));
+
+    final titleSelector3 = Center(
+        child: Text('Select Bird species',
+            style: TextStyle(color: Colors.blue, fontSize: 16.0)));
+
+    final BirdSpeciesSelect = Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: DropdownButtonFormField(
+          value: dropdownValue2,
+          icon: Icon(Icons.arrow_downward),
+          iconSize: 24,
+          elevation: 16,
+          style: TextStyle(color: Colors.deepPurple),
+          onChanged: (String newValue) {
+            setState(() {
+              dropdownValue2 = newValue;
+              check();
+            });
+          },
+          items:
+              <String>['Birds'].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),
@@ -121,7 +187,12 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
       body: Center(
         child: ListView(
           children: [
+            titleSelector1,
             SelectionOptions,
+            titleSelector2,
+            ButterflySpeciesSelect,
+            titleSelector3,
+            BirdSpeciesSelect,
             SubmitButtonButterfly,
             SubmitButtonBird,
           ],

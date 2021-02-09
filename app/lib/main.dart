@@ -8,9 +8,12 @@ import 'ui/add_sightings_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 FirebaseAnalytics analytics;
 Future<void> main() async {
+  await WidgetsFlutterBinding.ensureInitialized();
   analytics = FirebaseAnalytics();
   await Firebase.initializeApp();
   runApp(App());
