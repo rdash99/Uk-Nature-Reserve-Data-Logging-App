@@ -149,6 +149,42 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           }).toList(),
         ));
 
+    final numberSeenButterfly = Visibility(
+        visible: butterfly_visible,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextFormField(
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: "Number seen",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+            ),
+            onChanged: (text) {
+              Globals.GlobalData.butterflyNum = text;
+            },
+          ),
+        ));
+
+    final numberSeenBird = Visibility(
+        visible: bird_visible,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextFormField(
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: "Number seen",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+            ),
+            onChanged: (text) {
+              Globals.GlobalData.birdNum = text;
+            },
+          ),
+        ));
+
     final SubmitButtonBird = Visibility(
         visible: bird_visible,
         child: Padding(
@@ -193,6 +229,8 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
             ButterflySpeciesSelect,
             titleSelector3,
             BirdSpeciesSelect,
+            numberSeenButterfly,
+            numberSeenBird,
             SubmitButtonButterfly,
             SubmitButtonBird,
           ],
