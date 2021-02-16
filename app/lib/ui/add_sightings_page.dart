@@ -23,17 +23,14 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   var dropdownValue = 'Butterflies';
   var dropdownValue1 = 'Butterflies';
   var dropdownValue2 = 'Birds';
+  var UserID = FirebaseAuth.instance.currentUser.uid;
+  var SpeciesButterfly = 'test';
+  var dateTime = '';
+  var formattedDate = '';
+  var finalDate = '';
+  var formattedTime = '';
+  var finalTime = '';
 
-  /* var butterfly_list = FirebaseFirestore.instance
-      .collection('Species')
-      .doc('Butterflies')
-      .collection('Butterflies')
-      .get()
-      .then((querySnapshot) {
-    querySnapshot.docs.forEach((result) {
-      print(result.data());
-    });
-  }); */
   check() {
     if (Globals.GlobalData.butterBird == 'Butterflies') {
       setState(() {
@@ -56,16 +53,13 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
       check();
     }); */
 
-    // create a collection reference
+    // create a collection reference for butterfly sightings
     CollectionReference Butterfly_Sightings =
         FirebaseFirestore.instance.collection('Butterfly_Sightings');
 
-    Future<void> addButterfly() {
-      // Call the Butterfly_Sightings' CollectionReference to add a new document
-      return Butterfly_Sightings.add({})
-          .then((value) => print("Butterfly Added"))
-          .catchError((error) => print("Failed to add Butterfly: $error"));
-    }
+    // create a collection reference
+    CollectionReference Bird_Sightings =
+        FirebaseFirestore.instance.collection('Bird_Sightings');
 
     final titleSelector1 = Center(
         child: Text('Select animal group',
@@ -154,7 +148,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextFormField(
-            obscureText: true,
+            obscureText: false,
             decoration: InputDecoration(
               labelText: "Number seen",
               border: OutlineInputBorder(
@@ -212,7 +206,26 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               "Submit butterfly",
               style: TextStyle(color: Colors.white, fontSize: 16.0),
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                dateTime = new DateTime.now().toString();
+                var dateParse = DateTime.parse(dateTime);
+                formattedDate =
+                    "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+                finalDate = formattedDate.toString();
+                formattedTime =
+                    "${dateParse.hour}-${dateParse.minute}-${dateParse.second}";
+                finalTime = formattedTime.toString();
+              });
+              Butterfly_Sightings.add({
+                'UserID': UserID,
+                'Species': SpeciesButterfly,
+                'Number': Globals.GlobalData.butterflyNum,
+                'Date': finalDate,
+                'Time': finalTime,
+              }).then((value) => print("Butterfly sighting Added")).catchError(
+                  (error) => print("Failed to add butterfly sighting: $error"));
+            },
             color: Colors.blue,
           ),
         ));
