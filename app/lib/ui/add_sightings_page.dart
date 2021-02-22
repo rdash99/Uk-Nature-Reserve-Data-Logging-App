@@ -109,6 +109,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               onChanged: (String newValue) {
                 setState(() {
                   dropdownValue1 = newValue;
+                  SpeciesButterfly = newValue;
                   check();
                 });
               },
