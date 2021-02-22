@@ -23,7 +23,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   var dropdownValue = 'Butterflies';
   var dropdownValue1 = 'Butterflies';
   var dropdownValue2 = 'Birds';
-  var UserID = FirebaseAuth.instance.currentUser.uid;
+  var UserID = FirebaseAuth.instance.currentUser;
   var SpeciesButterfly = 'test';
   var dateTime = '';
   var formattedDate = '';
