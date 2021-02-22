@@ -33,6 +33,7 @@ class _HomeRouteState extends State<HomeRoute> {
             title: Text("Logout"),
             onTap: () async {
               await FirebaseAuth.instance.signOut();
+              window.location.reload();
             },
           ),
         ),

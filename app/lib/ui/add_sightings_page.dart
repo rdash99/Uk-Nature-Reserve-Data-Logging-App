@@ -18,12 +18,12 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   String eng_Name;
   String latin_Name;
   var location;
-  bool bird_visible = true;
+  bool bird_visible = false;
   bool butterfly_visible = true;
   var dropdownValue = 'Butterflies';
   var dropdownValue1 = 'Butterflies';
   var dropdownValue2 = 'Birds';
-  var UserID = FirebaseAuth.instance.currentUser;
+  var UserID = Globals.GlobalData.userID;
   var SpeciesButterfly = 'test';
   var dateTime = '';
   var formattedDate = '';
@@ -48,18 +48,19 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
 
   @override
   Widget build(BuildContext context) {
-    /* setState(() {
-      Globals.GlobalData.butterBird = 'Butterflies';
-      check();
-    }); */
-
     // create a collection reference for butterfly sightings
     CollectionReference Butterfly_Sightings =
         FirebaseFirestore.instance.collection('Butterfly_Sightings');
 
-    // create a collection reference
+    // create a collection reference for birds sightings
     CollectionReference Bird_Sightings =
         FirebaseFirestore.instance.collection('Bird_Sightings');
+
+    // create a collection reference for butterfly species
+    CollectionReference Butterfly_Species = FirebaseFirestore.instance
+        .collection('Species/Butterflies/Butterflies/');
+
+    var Butterfly_Species_List = Butterfly_Species.get();
 
     final titleSelector1 = Center(
         child: Text('Select animal group',
@@ -89,59 +90,67 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           }).toList(),
         ));
 
-    final titleSelector2 = Center(
-        child: Text('Select butterfly species',
-            style: TextStyle(color: Colors.blue, fontSize: 16.0)));
+    final titleSelector2 = Visibility(
+        visible: butterfly_visible,
+        child: Center(
+            child: Text('Select butterfly species',
+                style: TextStyle(color: Colors.blue, fontSize: 16.0))));
 
-    final ButterflySpeciesSelect = Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: DropdownButtonFormField(
-          value: dropdownValue1,
-          icon: Icon(Icons.arrow_downward),
-          iconSize: 24,
-          elevation: 16,
-          style: TextStyle(color: Colors.deepPurple),
-          onChanged: (String newValue) {
-            setState(() {
-              dropdownValue1 = newValue;
-              check();
-            });
-          },
-          items: <String>['Butterflies']
-              .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ));
+    final ButterflySpeciesSelect = Visibility(
+        visible: butterfly_visible,
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: DropdownButtonFormField(
+              value: dropdownValue1,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: Colors.deepPurple),
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue1 = newValue;
+                  check();
+                });
+              },
+              items: <String>['Butterflies']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            )));
 
-    final titleSelector3 = Center(
-        child: Text('Select Bird species',
-            style: TextStyle(color: Colors.blue, fontSize: 16.0)));
+    final titleSelector3 = Visibility(
+        visible: bird_visible,
+        child: Center(
+            child: Text('Select Bird species',
+                style: TextStyle(color: Colors.blue, fontSize: 16.0))));
 
-    final BirdSpeciesSelect = Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: DropdownButtonFormField(
-          value: dropdownValue2,
-          icon: Icon(Icons.arrow_downward),
-          iconSize: 24,
-          elevation: 16,
-          style: TextStyle(color: Colors.deepPurple),
-          onChanged: (String newValue) {
-            setState(() {
-              dropdownValue2 = newValue;
-              check();
-            });
-          },
-          items:
-              <String>['Birds'].map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ));
+    final BirdSpeciesSelect = Visibility(
+        visible: bird_visible,
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: DropdownButtonFormField(
+              value: dropdownValue2,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: Colors.deepPurple),
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue2 = newValue;
+                  check();
+                });
+              },
+              items: <String>['Birds']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            )));
 
     final numberSeenButterfly = Visibility(
         visible: butterfly_visible,
