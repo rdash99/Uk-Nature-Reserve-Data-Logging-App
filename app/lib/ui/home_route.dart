@@ -77,8 +77,8 @@ class _HomeRouteState extends State<HomeRoute> {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text("John Doe"),
-              accountEmail: Text("johndoe@testfairy.com"),
+              accountName: Text(FirebaseAuth.instance.currentUser.uid),
+              accountEmail: Text(FirebaseAuth.instance.currentUser.email),
             ),
             menu,
           ],
