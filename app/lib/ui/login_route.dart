@@ -124,7 +124,7 @@ class _LoginRouteState extends State<LoginRoute> {
 
     //create link to sign up page
     final signUpButton = Visibility(
-        visible: _isVisible2,
+        visible: true,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Material(
@@ -168,26 +168,29 @@ class _LoginRouteState extends State<LoginRoute> {
         ));
 
     //create back button
-    final homeButton = Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Material(
-        elevation: 5.0,
-        shadowColor: Colors.blue.shade100,
-        child: MaterialButton(
-          minWidth: 200.0,
-          height: 48.0,
-          child: Text(
-            "Go Back",
-            style: TextStyle(color: Colors.white, fontSize: 16.0),
+    final homeButton = Visibility(
+        visible: false,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Material(
+            elevation: 5.0,
+            shadowColor: Colors.blue.shade100,
+            child: MaterialButton(
+              minWidth: 200.0,
+              height: 48.0,
+              child: Text(
+                "Go Back",
+                style: TextStyle(color: Colors.white, fontSize: 16.0),
+              ),
+              color: Colors.blue,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeRoute()));
+              },
+            ),
           ),
-          color: Colors.blue,
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeRoute()));
-          },
-        ),
-      ),
-    );
+        ));
+
     //display page
     return Scaffold(
       backgroundColor: Colors.white,
