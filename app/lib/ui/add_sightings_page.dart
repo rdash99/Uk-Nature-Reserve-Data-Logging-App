@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
+import 'package:geolocator/geolocator.dart';
 
 class AddSightingsRoute extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   bool bird_visible = false;
   bool butterfly_visible = true;
   var dropdownValue = 'Butterflies';
-  var dropdownValue1 = 'Butterflies';
+  var dropdownValue1 = 'Adonis Blue';
   var dropdownValue2 = 'Birds';
   var UserID = Globals.GlobalData.userID;
   var SpeciesButterfly = 'test';
@@ -30,6 +31,8 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   var finalDate = '';
   var formattedTime = '';
   var finalTime = '';
+  var latitude = '';
+  var longitude = '';
 
   check() {
     if (Globals.GlobalData.butterBird == 'Butterflies') {
@@ -275,7 +278,9 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               "Submit butterfly",
               style: TextStyle(color: Colors.white, fontSize: 16.0),
             ),
-            onPressed: () {
+            onPressed: () async {
+              Position position = await Geolocator.getCurrentPosition(
+                  desiredAccuracy: LocationAccuracy.best);
               setState(() {
                 dateTime = new DateTime.now().toString();
                 var dateParse = DateTime.parse(dateTime);
@@ -285,15 +290,19 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 formattedTime =
                     "${dateParse.hour}-${dateParse.minute}-${dateParse.second}";
                 finalTime = formattedTime.toString();
+                latitude = position.latitude.toString();
+                longitude = position.longitude.toString();
               });
-              Butterfly_Sightings.add({
-                'UserID': UserID,
+              await Butterfly_Sightings.add({
+                'UserID': Globals.GlobalData.userID,
                 'Species': SpeciesButterfly,
                 'Number': Globals.GlobalData.butterflyNum,
                 'Date': finalDate,
                 'Time': finalTime,
+                'Location': {'Latitude': latitude, 'Longitude': longitude},
               }).then((value) => print("Butterfly sighting Added")).catchError(
                   (error) => print("Failed to add butterfly sighting: $error"));
+              Navigator.popUntil(context, ModalRoute.withName("/home"));
             },
             color: Colors.blue,
           ),
