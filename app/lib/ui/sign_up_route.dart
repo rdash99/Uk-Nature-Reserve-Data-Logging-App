@@ -196,7 +196,14 @@ class _SignUpRouteState extends State<SignUpRoute> {
                     password: Globals.GlobalData.password);
 
             Globals.GlobalData.userID = auth.currentUser.uid;
-            addUser();
+            FirebaseFirestore.instance
+                .collection('Users')
+                .doc(Globals.GlobalData.userID)
+                .set({
+              "FirstName": Globals.GlobalData.firstName,
+              "Surname": Globals.GlobalData.surname,
+              "Email": Globals.GlobalData.email,
+            });
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomeRoute()));
