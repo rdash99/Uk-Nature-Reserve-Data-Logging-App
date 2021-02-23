@@ -31,7 +31,7 @@ class App extends StatelessWidget {
         "/identify": (context) => IdentificationRoute(),
         "/add": (context) => AddSightingsRoute(),
       },
-      initialRoute: "/home",
+      initialRoute: "/",
     );
   }
 }
