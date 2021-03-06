@@ -58,6 +58,7 @@ dependencies:
   #location data
   geolocator: ^6.2.0
   geocoding: ^1.0.5
+  geoflutterfire: ^2.2.2
 
 dev_dependencies:
   hive_generator: ^0.8.2
