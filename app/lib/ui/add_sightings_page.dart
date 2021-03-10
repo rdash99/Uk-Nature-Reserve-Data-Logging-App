@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:geolocator/geolocator.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 
 class AddSightingsRoute extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class AddSightingsRoute extends StatefulWidget {
 class _AddSightingsRouteState extends State<AddSightingsRoute> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  final geo = Geoflutterfire();
   String eng_Name;
   String latin_Name;
   var location;
@@ -33,6 +35,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   var finalTime = '';
   var latitude = '';
   var longitude = '';
+  var geoPoint = '';
 
   check() {
     if (Globals.GlobalData.butterBird == 'Butterflies') {
@@ -292,6 +295,8 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 finalTime = formattedTime.toString();
                 latitude = position.latitude.toString();
                 longitude = position.longitude.toString();
+                GeoFirePoint geoPoint = geo.point(
+                    latitude: position.latitude, longitude: position.longitude);
               });
               await Butterfly_Sightings.add({
                 'UserID': Globals.GlobalData.userID,
@@ -300,6 +305,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 'Date': finalDate,
                 'Time': finalTime,
                 'Location': {'Latitude': latitude, 'Longitude': longitude},
+                'LocationGeoPoint': geoPoint,
               }).then((value) => print("Butterfly sighting Added")).catchError(
                   (error) => print("Failed to add butterfly sighting: $error"));
               Navigator.popUntil(context, ModalRoute.withName("/home"));
