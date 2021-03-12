@@ -295,9 +295,10 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 finalTime = formattedTime.toString();
                 latitude = position.latitude.toString();
                 longitude = position.longitude.toString();
-                GeoFirePoint geoPoint = geo.point(
-                    latitude: position.latitude, longitude: position.longitude);
               });
+              GeoFirePoint geoPoint = geo.point(
+                  latitude: position.latitude, longitude: position.longitude);
+
               await Butterfly_Sightings.add({
                 'UserID': Globals.GlobalData.userID,
                 'Species': SpeciesButterfly,
@@ -305,10 +306,11 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 'Date': finalDate,
                 'Time': finalTime,
                 'Location': {'Latitude': latitude, 'Longitude': longitude},
-                'LocationGeoPoint': geoPoint,
+                'LocationGeoPoint': geoPoint.data,
               }).then((value) => print("Butterfly sighting Added")).catchError(
                   (error) => print("Failed to add butterfly sighting: $error"));
-              Navigator.popUntil(context, ModalRoute.withName("/home"));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeRoute()));
             },
             color: Colors.blue,
           ),
