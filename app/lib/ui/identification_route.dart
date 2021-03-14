@@ -1,3 +1,4 @@
+import 'package:app/Page_navigation/tabs_page.dart';
 import 'package:flutter/material.dart';
 import 'home_route.dart';
 import 'package:flutter/rendering.dart';
@@ -26,7 +27,8 @@ class _IdentificationRouteState extends State<IdentificationRoute> {
                 ),
                 color: Colors.blue,
                 onPressed: () {
-                  Navigator.popUntil(context, ModalRoute.withName("/home"));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => TabsPage()));
                 })));
     return Scaffold(
         backgroundColor: Colors.white,

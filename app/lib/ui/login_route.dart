@@ -1,3 +1,4 @@
+import 'package:app/Page_navigation/tabs_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'home_route.dart';
@@ -100,7 +101,7 @@ class _LoginRouteState extends State<LoginRoute> {
                     password: Globals.GlobalData.password);
             // go to home screen
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeRoute()));
+                context, MaterialPageRoute(builder: (context) => TabsPage()));
           } on FirebaseAuthException catch (e) {
             if (e.code == 'user-not-found') {
               print('No user found for that email.');

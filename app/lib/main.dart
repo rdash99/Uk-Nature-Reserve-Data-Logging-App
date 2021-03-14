@@ -8,6 +8,7 @@ import 'ui/add_sightings_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'Page_navigation/tabs_page.dart';
 
 FirebaseAnalytics analytics;
 Future<void> main() async {
@@ -25,13 +26,14 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        "/": (context) => LoginRoute(),
+        "/": (context) => TabsPage(),
+        "/login": (context) => LoginRoute(),
         "/home": (context) => HomeRoute(),
         "/signup": (context) => SignUpRoute(),
         "/identify": (context) => IdentificationRoute(),
         "/add": (context) => AddSightingsRoute(),
       },
-      initialRoute: "/",
+      initialRoute: "/login",
     );
   }
 }

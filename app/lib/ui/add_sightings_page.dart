@@ -1,3 +1,4 @@
+import 'package:app/Page_navigation/tabs_page.dart';
 import 'package:app/ui/home_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -336,8 +337,8 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 'LocationGeoPoint': geoPoint.data,
               }).then((value) => print("Butterfly sighting Added")).catchError(
                   (error) => print("Failed to add butterfly sighting: $error"));
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeRoute()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => TabsPage()));
             },
             color: Colors.blue,
           ),

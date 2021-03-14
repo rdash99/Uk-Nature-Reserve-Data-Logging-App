@@ -5,6 +5,7 @@ import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'add_sightings_page.dart';
+import 'package:app/Page_navigation/tab_navigation_items.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 
 class HomeRoute extends StatefulWidget {

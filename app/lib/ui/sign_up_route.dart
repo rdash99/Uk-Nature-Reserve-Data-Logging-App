@@ -1,5 +1,5 @@
 import 'dart:html';
-
+import 'package:app/Page_navigation/tabs_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'login_route.dart';
@@ -206,7 +206,7 @@ class _SignUpRouteState extends State<SignUpRoute> {
             });
             // go to home screen
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeRoute()));
+                context, MaterialPageRoute(builder: (context) => TabsPage()));
           } on FirebaseAuthException catch (e) {
             if (e.code == 'weak-password') {
               print('The password provided is too weak.');
