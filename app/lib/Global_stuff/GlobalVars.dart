@@ -7,6 +7,6 @@ class GlobalData {
   static var firstName = '';
   static var surname = '';
   static var butterBird = '';
-  static var butterflyNum = '';
+  static int butterflyNum = 0;
   static var birdNum = '';
 }

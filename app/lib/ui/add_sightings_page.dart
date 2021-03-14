@@ -36,6 +36,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   var latitude = '';
   var longitude = '';
   var geoPoint = '';
+  bool butterfly_number_error = false;
 
   check() {
     if (Globals.GlobalData.butterBird == 'Butterflies') {
@@ -62,12 +63,6 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
     CollectionReference Bird_Sightings =
         FirebaseFirestore.instance.collection('Bird_Sightings');
 
-    // create a collection reference for butterfly species
-    CollectionReference Butterfly_Species = FirebaseFirestore.instance
-        .collection('Species/Butterflies/Butterflies/');
-
-    var Butterfly_Species_List = Butterfly_Species.get();
-
     final titleSelector1 = Center(
         child: Text('Select animal group',
             style: TextStyle(color: Colors.blue, fontSize: 16.0)));
@@ -87,7 +82,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               check();
             });
           },
-          items: <String>['Butterflies', 'Birds']
+          items: <String>['Butterflies']
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -96,12 +91,14 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           }).toList(),
         ));
 
+    //title 2
     final titleSelector2 = Visibility(
         visible: butterfly_visible,
         child: Center(
             child: Text('Select butterfly species',
                 style: TextStyle(color: Colors.blue, fontSize: 16.0))));
 
+    //butterfly species selection dropdown
     final ButterflySpeciesSelect = Visibility(
         visible: butterfly_visible,
         child: Padding(
@@ -187,12 +184,14 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               }).toList(),
             )));
 
+    //bird species title - not displayed
     final titleSelector3 = Visibility(
         visible: bird_visible,
         child: Center(
             child: Text('Select Bird species',
                 style: TextStyle(color: Colors.blue, fontSize: 16.0))));
 
+    //Bird species selection - not implemented
     final BirdSpeciesSelect = Visibility(
         visible: bird_visible,
         child: Padding(
@@ -218,6 +217,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               }).toList(),
             )));
 
+    //input number of butterflies seen
     final numberSeenButterfly = Visibility(
         visible: butterfly_visible,
         child: Padding(
@@ -231,11 +231,30 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               ),
             ),
             onChanged: (text) {
-              Globals.GlobalData.butterflyNum = text;
+              //convert text into integer and perform validation
+              var number = int.parse(text);
+              if (number > 0) {
+                setState(() {
+                  Globals.GlobalData.butterflyNum = number;
+                  butterfly_number_error = false;
+                });
+              } else {
+                setState(() {
+                  butterfly_number_error = true;
+                });
+              }
             },
           ),
         ));
 
+    //butterfly number input error
+    final numberErrorButterfly = Visibility(
+        visible: butterfly_number_error,
+        child: Center(
+            child: Text('Please enter a positive number',
+                style: TextStyle(color: Colors.red, fontSize: 16.0))));
+
+    //numbers of birds input - not implemented
     final numberSeenBird = Visibility(
         visible: bird_visible,
         child: Padding(
@@ -254,6 +273,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           ),
         ));
 
+    //submit bird sighting - not implemented
     final SubmitButtonBird = Visibility(
         visible: bird_visible,
         child: Padding(
@@ -270,6 +290,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           ),
         ));
 
+    //submit butterfly sighting
     final SubmitButtonButterfly = Visibility(
         visible: butterfly_visible,
         child: Padding(
@@ -282,10 +303,13 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               style: TextStyle(color: Colors.white, fontSize: 16.0),
             ),
             onPressed: () async {
+              //get location
               Position position = await Geolocator.getCurrentPosition(
                   desiredAccuracy: LocationAccuracy.best);
               setState(() {
+                //get current date and time
                 dateTime = new DateTime.now().toString();
+                //process date and time
                 var dateParse = DateTime.parse(dateTime);
                 formattedDate =
                     "${dateParse.day}-${dateParse.month}-${dateParse.year}";
@@ -293,12 +317,15 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 formattedTime =
                     "${dateParse.hour}-${dateParse.minute}-${dateParse.second}";
                 finalTime = formattedTime.toString();
+                //process location
                 latitude = position.latitude.toString();
                 longitude = position.longitude.toString();
               });
+              //create geoPoint
               GeoFirePoint geoPoint = geo.point(
                   latitude: position.latitude, longitude: position.longitude);
 
+              //submit sighting
               await Butterfly_Sightings.add({
                 'UserID': Globals.GlobalData.userID,
                 'Species': SpeciesButterfly,
@@ -328,6 +355,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
             ButterflySpeciesSelect,
             titleSelector3,
             BirdSpeciesSelect,
+            numberErrorButterfly,
             numberSeenButterfly,
             numberSeenBird,
             SubmitButtonButterfly,
