@@ -20,12 +20,12 @@ class _HomeRouteState extends State<HomeRoute> {
   bool _isVisible1 = false;
   bool _isVisible2 = true;
 
+  //create firebase authentication instance
   FirebaseAuth auth = FirebaseAuth.instance;
 
+  //create new google maps instance
   GoogleMapController mapContoller;
-
   final LatLng _center = const LatLng(45.521563, -122.677433);
-
   void _onMapCreated(GoogleMapController controller) {
     mapContoller = controller;
   }
@@ -102,6 +102,7 @@ class _HomeRouteState extends State<HomeRoute> {
           ],
         ),
       ),
+      //display map
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
