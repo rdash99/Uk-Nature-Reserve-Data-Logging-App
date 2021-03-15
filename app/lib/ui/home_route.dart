@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'add_sightings_page.dart';
 import 'package:app/Page_navigation/tab_navigation_items.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeRoute extends StatefulWidget {
   @override
@@ -16,7 +19,16 @@ class HomeRoute extends StatefulWidget {
 class _HomeRouteState extends State<HomeRoute> {
   bool _isVisible1 = false;
   bool _isVisible2 = true;
+
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  GoogleMapController mapContoller;
+
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapContoller = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +89,7 @@ class _HomeRouteState extends State<HomeRoute> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Welcome"),
+        title: Text("Home"),
       ),
       drawer: Drawer(
         child: Column(
@@ -90,8 +102,12 @@ class _HomeRouteState extends State<HomeRoute> {
           ],
         ),
       ),
-      body: Center(
-        child: Text("Hello"),
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: _center,
+          zoom: 11.0,
+        ),
       ),
     );
   }
