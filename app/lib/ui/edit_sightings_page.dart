@@ -19,14 +19,18 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
 
   final geo = Geoflutterfire();
 
+  var userid = FirebaseAuth.instance.currentUser.uid;
+
   CollectionReference butterfly_sightings =
       FirebaseFirestore.instance.collection('Butterfly_Sightings');
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+/*     return StreamBuilder<QuerySnapshot>(
       stream: butterfly_sightings
-          .where('UserId', Globals.GlobalData.userID)
+          .where(
+            'UserId', = userid
+          )
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {},
     );
@@ -35,5 +39,7 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
         print(result.data());
       });
     });
+  }
+} */
   }
 }
