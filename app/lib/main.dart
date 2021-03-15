@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:app/ui/edit_sightings_page.dart';
 import 'package:flutter/material.dart';
 import 'ui/login_route.dart';
 import 'ui/home_route.dart';
@@ -32,6 +33,7 @@ class App extends StatelessWidget {
         "/signup": (context) => SignUpRoute(),
         "/identify": (context) => IdentificationRoute(),
         "/add": (context) => AddSightingsRoute(),
+        "/edit": (context) => EditSightingsRoute(),
       },
       initialRoute: "/login",
     );
