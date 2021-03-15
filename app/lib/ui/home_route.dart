@@ -16,6 +16,7 @@ class HomeRoute extends StatefulWidget {
 class _HomeRouteState extends State<HomeRoute> {
   bool _isVisible1 = false;
   bool _isVisible2 = true;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class _HomeRouteState extends State<HomeRoute> {
             Navigator.popUntil(context, ModalRoute.withName("/identify"));
           },
         ),
+
         //log out button
         Visibility(
           visible: _isVisible1,
@@ -37,6 +39,7 @@ class _HomeRouteState extends State<HomeRoute> {
             },
           ),
         ),
+
         //login button
         Visibility(
           visible: _isVisible2,
@@ -50,10 +53,13 @@ class _HomeRouteState extends State<HomeRoute> {
         ),
       ],
     );
-    FirebaseAuth auth = FirebaseAuth.instance;
+
     if (auth.currentUser != null) {
       Globals.GlobalData.userID = auth.currentUser.uid;
       //print(auth.currentUser.uid);
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginRoute()));
     }
     FirebaseAuth.instance.userChanges().listen((User user) {
       if (user == null) {
@@ -86,13 +92,6 @@ class _HomeRouteState extends State<HomeRoute> {
       ),
       body: Center(
         child: Text("Hello"),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: new Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddSightingsRoute()));
-        },
       ),
     );
   }

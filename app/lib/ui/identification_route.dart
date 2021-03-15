@@ -30,6 +30,7 @@ class _IdentificationRouteState extends State<IdentificationRoute> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => TabsPage()));
                 })));
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Center(
