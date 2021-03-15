@@ -21,7 +21,7 @@ class TabNavigationItem {
         TabNavigationItem(
             page: AddSightingsRoute(),
             title: "Add a sighting",
-            icon: Icon(Icons.add)),
+            icon: Icon(Icons.add_circle)),
         TabNavigationItem(
             page: LoginRoute(),
             title: "Login/Sign up",
