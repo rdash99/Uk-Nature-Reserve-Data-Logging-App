@@ -30,16 +30,6 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
   var dropdownValue1 = 'Adonis Blue';
   var SpeciesButterfly = 'Adonis Blue';
 
-  //create new google maps instance
-  GoogleMapController mapContoller;
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-  void _onMapCreated(GoogleMapController controller) {
-    mapContoller = controller;
-  }
-
-  static GoogleMapController _googleMapController;
-  Set<Marker> markers = Set();
-
   @override
   Widget build(BuildContext context) {
     final Selection_box = Visibility(
@@ -125,48 +115,17 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
                 );
               }).toList(),
             )));
-  }
 
-  /* final plot = Visibility(
-      child: StreamBuilder(
-    stream: FirebaseFirestore.instance
-        .collection('Butterfly_Sightings')
-        .snapshots().where(('Species') => SpeciesButterfly),
-    builder: (context, snapshot) {print(snapshot);
-          if (snapshot.hasData) {
-//Extract the location from document
-            GeoPoint location = snapshot.data.docs.first.get("location");
-// Check if location is valid
-            if (location == null) {
-              return Text("There was no location data");
-            }
-// Remove any existing markers
-            markers.clear();
-final latLng = LatLng(location.latitude, location.longitude);
-// Add new marker with markerId.
-            markers
-                .add(Marker(markerId: MarkerId("location"), position: latLng));
-// If google map is already created then update camera position with animation
-            _googleMapController?.animateCamera(CameraUpdate.newCameraPosition(
-              CameraPosition(
-                target: latLng,
-                zoom: ZOOM,
-              ),
-            ));
-return GoogleMap(
-              initialCameraPosition: CameraPosition(
-                  target: LatLng(location.latitude, location.longitude)),
-              // Markers to be pointed
-              markers: markers,
-              onMapCreated: (controller) {
-                // Assign the controller value to use it later
-                _googleMapController = controller;
-              },
-            );
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-}},
-  )); */
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('Butterfly_Sightings')
+          .where("Species", isEqualTo: SpeciesButterfly)
+          .snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        return new ListView(children: createChildren(snapshot));
+      },
+    );
+  }
 }
+
+createChildren(AsyncSnapshot<QuerySnapshot> snapshot) {}
