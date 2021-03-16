@@ -1,4 +1,5 @@
 import 'package:app/Page_navigation/tabs_page.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:html';
@@ -8,6 +9,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class EditSightingsRoute extends StatefulWidget {
   @override
@@ -24,22 +26,147 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
   CollectionReference butterfly_sightings =
       FirebaseFirestore.instance.collection('Butterfly_Sightings');
 
+  bool Selection = true;
+  var dropdownValue1 = 'Adonis Blue';
+  var SpeciesButterfly = 'Adonis Blue';
+
+  //create new google maps instance
+  GoogleMapController mapContoller;
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+  void _onMapCreated(GoogleMapController controller) {
+    mapContoller = controller;
+  }
+
+  static GoogleMapController _googleMapController;
+  Set<Marker> markers = Set();
+
   @override
   Widget build(BuildContext context) {
-/*     return StreamBuilder<QuerySnapshot>(
-      stream: butterfly_sightings
-          .where(
-            'UserId', = userid
-          )
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {},
-    );
-    butterfly_sightings.get().then((querySnapshot) {
-      querySnapshot.docs.forEach((result) {
-        print(result.data());
-      });
-    });
+    final Selection_box = Visibility(
+        visible: Selection,
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: DropdownButtonFormField(
+              value: dropdownValue1,
+              icon: Icon(Icons.arrow_downward),
+              iconSize: 24,
+              elevation: 16,
+              style: TextStyle(color: Colors.blue),
+              onChanged: (String newValue) {
+                setState(() {
+                  dropdownValue1 = newValue;
+                  SpeciesButterfly = newValue;
+                });
+              },
+              items: <String>[
+                'Adonis Blue',
+                'Black Hairstreak',
+                'Brimstone',
+                'Brown Argus',
+                'Brown Hairstreak',
+                'Chalkhill Blue',
+                'Chequered Skipper',
+                'Clouded Yellow',
+                'Comma',
+                'Common Blue',
+                'Dark Green Fritillary',
+                'Dingy Skipper',
+                'Duke of Burgundy',
+                'Essex Skipper',
+                'Gatekeeper',
+                'Glanville Fritillary',
+                'Grayling',
+                'Green-veined White',
+                'Green Hairstreak',
+                'Grizzled Skipper',
+                'Heath Fritillary',
+                'High Brown Fritillary',
+                'Holly Blue',
+                'Large Blue',
+                'Large Heath',
+                'Large Skipper',
+                'Large White',
+                'Lulworth Skipper',
+                'Marbled White',
+                'Marsh Fritillary',
+                'Meadow Brown',
+                'Mountain Ringlet',
+                'Northern Brown Argus',
+                'Swallowtail',
+                'Orange Tip',
+                'Painted Lady',
+                'Peacock',
+                'Pearl-bordered Fritillary',
+                'Purple Emperor',
+                'Purple Hairstreak',
+                'Real’s Wood White',
+                'Red Admiral',
+                'Ringlet',
+                'Scotch Argus',
+                'Silver-spotted Skipper',
+                'Silver-studded Blue',
+                'Silver-washed Fritillary',
+                'Small Blue',
+                'Small Copper',
+                'Small Heath',
+                'Small Pearl-bordered Fritillary',
+                'Small Skipper',
+                'Small Tortoiseshell',
+                'Small White',
+                'Speckled Wood',
+                'Wall',
+                'White Admiral',
+                'White-letter Hairstreak',
+                'Wood White'
+              ].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            )));
   }
-} */
-  }
+
+  /* final plot = Visibility(
+      child: StreamBuilder(
+    stream: FirebaseFirestore.instance
+        .collection('Butterfly_Sightings')
+        .snapshots().where(('Species') => SpeciesButterfly),
+    builder: (context, snapshot) {print(snapshot);
+          if (snapshot.hasData) {
+//Extract the location from document
+            GeoPoint location = snapshot.data.docs.first.get("location");
+// Check if location is valid
+            if (location == null) {
+              return Text("There was no location data");
+            }
+// Remove any existing markers
+            markers.clear();
+final latLng = LatLng(location.latitude, location.longitude);
+// Add new marker with markerId.
+            markers
+                .add(Marker(markerId: MarkerId("location"), position: latLng));
+// If google map is already created then update camera position with animation
+            _googleMapController?.animateCamera(CameraUpdate.newCameraPosition(
+              CameraPosition(
+                target: latLng,
+                zoom: ZOOM,
+              ),
+            ));
+return GoogleMap(
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(location.latitude, location.longitude)),
+              // Markers to be pointed
+              markers: markers,
+              onMapCreated: (controller) {
+                // Assign the controller value to use it later
+                _googleMapController = controller;
+              },
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+}},
+  )); */
 }
