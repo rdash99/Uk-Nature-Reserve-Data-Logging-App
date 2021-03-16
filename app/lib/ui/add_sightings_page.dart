@@ -74,7 +74,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           icon: Icon(Icons.arrow_downward),
           iconSize: 24,
           elevation: 16,
-          style: TextStyle(color: Colors.deepPurple),
+          style: TextStyle(color: Colors.blue),
           onChanged: (String newValue) {
             setState(() {
               dropdownValue = newValue;
@@ -108,7 +108,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               icon: Icon(Icons.arrow_downward),
               iconSize: 24,
               elevation: 16,
-              style: TextStyle(color: Colors.deepPurple),
+              style: TextStyle(color: Colors.blue),
               onChanged: (String newValue) {
                 setState(() {
                   dropdownValue1 = newValue;
