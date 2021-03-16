@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'add_sightings_page.dart';
+import 'Sightings/add_sightings_page.dart';
 import 'package:app/Page_navigation/tab_navigation_items.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:google_maps_flutter/google_maps_flutter.dart';

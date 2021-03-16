@@ -1,4 +1,4 @@
-import 'package:app/ui/add_sightings_page.dart';
+import 'package:app/ui/Sightings/add_sightings_page.dart';
 import 'package:app/ui/home_route.dart';
 import 'package:app/ui/login_route.dart';
 import 'package:flutter/material.dart';
