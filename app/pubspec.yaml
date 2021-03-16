@@ -35,7 +35,7 @@ dependencies:
   flutter_spinkit: ^5.0.0
   
   #main firebase plugin
-  firebase_core: 
+  firebase_core: ^0.7.0
   
   #user auth
   firebase_auth: ^0.20.0+1
@@ -48,7 +48,7 @@ dependencies:
   email_validator: ^1.0.4
 
   #storage
-  cloud_firestore: 
+  cloud_firestore: ^0.16.0
   firebase_storage: ^7.0.0 
 
   # For OS-specific directory paths
