@@ -119,6 +119,7 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('Butterfly_Sightings')
+          .where('UserID', isEqualTo: FirebaseAuth.instance.currentUser.uid)
           .where("Species", isEqualTo: SpeciesButterfly)
           .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
