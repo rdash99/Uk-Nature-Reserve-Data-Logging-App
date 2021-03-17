@@ -116,17 +116,20 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
               }).toList(),
             )));
 
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
+    Stream getButterflyList() {
+      Stream snapshots = FirebaseFirestore.instance
           .collection('Butterfly_Sightings')
-          .where('UserID', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+          .where('UserID', isEqualTo: Globals.GlobalData.userID)
           .where("Species", isEqualTo: SpeciesButterfly)
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        return new ListView(children: createChildren(snapshot));
-      },
-    );
+          .snapshots();
+      return snapshots;
+    }
+
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+            child: ListView(
+          children: [Selection_box],
+        )));
   }
 }
-
-createChildren(AsyncSnapshot<QuerySnapshot> snapshot) {}
