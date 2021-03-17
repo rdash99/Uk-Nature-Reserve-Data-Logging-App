@@ -24,11 +24,10 @@ class _HomeRouteState extends State<HomeRoute> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   //create new google maps instance
-  GoogleMapController mapContoller;
+  /*  GoogleMapController mapContoller;
   final LatLng _center = const LatLng(45.521563, -122.677433);
   void _onMapCreated(GoogleMapController controller) {
-    mapContoller = controller;
-  }
+    mapContoller = controller; */
 
   @override
   Widget build(BuildContext context) {
@@ -66,13 +65,13 @@ class _HomeRouteState extends State<HomeRoute> {
       ],
     );
 
-    if (auth.currentUser != null) {
+    /* if (auth.authStateChanges != null) {
       Globals.GlobalData.userID = auth.currentUser.uid;
       //print(auth.currentUser.uid);
     } else {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginRoute()));
-    }
+    } */
     FirebaseAuth.instance.userChanges().listen((User user) {
       if (user == null) {
         setState(() {
@@ -88,28 +87,29 @@ class _HomeRouteState extends State<HomeRoute> {
     });
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-      ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: Text(FirebaseAuth.instance.currentUser.uid),
-              accountEmail: Text(FirebaseAuth.instance.currentUser.email),
-            ),
-            menu,
-          ],
+        appBar: AppBar(
+          title: Text("Home"),
         ),
-      ),
-      //display map
-      body: GoogleMap(
+        drawer: Drawer(
+          child: Column(
+            children: [
+              UserAccountsDrawerHeader(
+                accountName: Text(FirebaseAuth.instance.currentUser.uid),
+                accountEmail: Text(FirebaseAuth.instance.currentUser.email),
+              ),
+              menu,
+            ],
+          ),
+        ),
+        //display map
+        body:
+            /* GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
           target: _center,
           zoom: 11.0,
         ),
-      ),
-    );
+      ), */
+            Text('Hello'));
   }
 }
