@@ -204,6 +204,7 @@ class _SignUpRouteState extends State<SignUpRoute> {
               "Surname": Globals.GlobalData.surname,
               "Email": Globals.GlobalData.email,
             });
+            Globals.GlobalData.userID = FirebaseAuth.instance.currentUser.uid;
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => TabsPage()));
