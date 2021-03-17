@@ -124,9 +124,12 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
           .snapshots();
       return snapshots;
     }
-    stream.listen((QuerySnapshot snapshot) {
-      final List sightings = snapshot.docs.map((documentSnapshot) => Date.fromMap(documentSnapshot.data)).toList();
-    })
+
+    final list = snapshots.listen((QuerySnapshot snapshot) {
+      final List sightings = snapshot.docs
+          .map((documentSnapshot) => Date.fromMap(documentSnapshot.data))
+          .toList();
+    });
 
     return Scaffold(
         backgroundColor: Colors.white,
