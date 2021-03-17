@@ -1,4 +1,5 @@
 import 'package:app/ui/Sightings/add_sightings_page.dart';
+import 'package:app/ui/Sightings/edit_sightings_page.dart';
 import 'package:app/ui/home_route.dart';
 import 'package:app/ui/login_route.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,8 @@ class TabNavigationItem {
             title: "Add a sighting",
             icon: Icon(Icons.add_circle)),
         TabNavigationItem(
-            page: LoginRoute(),
-            title: "Login/Sign up",
-            icon: Icon(Icons.person)),
+            page: EditSightingsRoute(),
+            title: "Edit sightings",
+            icon: Icon(Icons.edit)),
       ];
 }
