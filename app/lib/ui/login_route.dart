@@ -99,6 +99,7 @@ class _LoginRouteState extends State<LoginRoute> {
                 .signInWithEmailAndPassword(
                     email: Globals.GlobalData.email,
                     password: Globals.GlobalData.password);
+            Globals.GlobalData.userID = auth.currentUser.uid;
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => TabsPage()));
