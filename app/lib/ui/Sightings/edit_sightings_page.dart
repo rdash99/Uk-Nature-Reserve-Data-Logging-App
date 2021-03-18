@@ -1,4 +1,5 @@
 import 'package:app/Page_navigation/tabs_page.dart';
+import 'package:app/ui/Sightings/models/sighting.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
   bool Selection = true;
   var dropdownValue1 = 'Adonis Blue';
   var SpeciesButterfly = 'Adonis Blue';
+  final List items = new List();
 
   @override
   Widget build(BuildContext context) {
@@ -116,26 +118,75 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
               }).toList(),
             )));
 
-    Stream getButterflyList() {
-      Stream snapshots = FirebaseFirestore.instance
+    final data = new StreamBuilder(
+      stream: FirebaseFirestore.instance
           .collection('Butterfly_Sightings')
           .where('UserID', isEqualTo: Globals.GlobalData.userID)
           .where("Species", isEqualTo: SpeciesButterfly)
-          .snapshots();
-      return snapshots;
-    }
+          .snapshots(),
+      builder: (context, snapshot) {},
+    );
 
-    final list = snapshots.listen((QuerySnapshot snapshot) {
-      final List sightings = snapshot.docs
-          .map((documentSnapshot) => Date.fromMap(documentSnapshot.data))
-          .toList();
-    });
+    builder:
+    (context, snapshot) {
+      return !snapshot.hasData
+          ? Text('PLease Wait')
+          : ListView.builder(
+              itemCount: snapshot.data.documents.length,
+              itemBuilder: (context, index) {
+                DocumentSnapshot sightings = snapshot.data.documents[index];
+                setState(() {
+                  var name = sightings['Species'];
+                  var date = sightings['Date'];
+                  var time = sightings['Time'];
+                  int num = sightings['Number'];
+                  items.add(Sighting(name, date, time, num));
+                });
+              },
+            );
+    };
+
+    final list = Visibility(
+        child: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, position) {
+              return ListTile(
+                title: Text('${items[position].body}'),
+              );
+            }));
 
     return Scaffold(
         backgroundColor: Colors.white,
         body: Center(
             child: ListView(
-          children: [Selection_box],
+          children: [
+            Selection_box,
+            data,
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('Butterfly_Sightings')
+                  .where('UserID', isEqualTo: Globals.GlobalData.userID)
+                  .where("Species", isEqualTo: SpeciesButterfly)
+                  .snapshots(),
+              initialData: items,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                return Container(
+                    child: ListView.builder(
+                  itemCount: snapshot.data.documents.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot sightings = snapshot.data.documents[index];
+                    setState(() {
+                      var name = sightings['Species'];
+                      var date = sightings['Date'];
+                      var time = sightings['Time'];
+                      int num = sightings['Number'];
+                      items.add(Sighting(name, date, time, num));
+                    });
+                  },
+                ));
+              },
+            ),
+          ],
         )));
   }
 }
