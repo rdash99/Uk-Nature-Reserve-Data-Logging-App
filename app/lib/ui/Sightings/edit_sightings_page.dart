@@ -118,23 +118,21 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
               }).toList(),
             )));
 
-    final data = new StreamBuilder(
+    final display = StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('Butterfly_Sightings')
           .where('UserID', isEqualTo: Globals.GlobalData.userID)
           .where("Species", isEqualTo: SpeciesButterfly)
           .snapshots(),
-      builder: (context, snapshot) {},
-    );
-
-    builder:
-    (context, snapshot) {
-      return !snapshot.hasData
-          ? Text('PLease Wait')
-          : ListView.builder(
-              itemCount: snapshot.data.documents.length,
+      initialData: items,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+            width: 200,
+            height: 500,
+            child: ListView.builder(
+              itemCount: snapshot.data.docs.length,
               itemBuilder: (context, index) {
-                DocumentSnapshot sightings = snapshot.data.documents[index];
+                DocumentSnapshot sightings = snapshot.data.docs[index];
                 setState(() {
                   var name = sightings['Species'];
                   var date = sightings['Date'];
@@ -143,8 +141,9 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
                   items.add(Sighting(name, date, time, num));
                 });
               },
-            );
-    };
+            ));
+      },
+    );
 
     final list = Visibility(
         child: ListView.builder(
@@ -161,31 +160,7 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
             child: ListView(
           children: [
             Selection_box,
-            data,
-            StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('Butterfly_Sightings')
-                  .where('UserID', isEqualTo: Globals.GlobalData.userID)
-                  .where("Species", isEqualTo: SpeciesButterfly)
-                  .snapshots(),
-              initialData: items,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                return Container(
-                    child: ListView.builder(
-                  itemCount: snapshot.data.documents.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot sightings = snapshot.data.documents[index];
-                    setState(() {
-                      var name = sightings['Species'];
-                      var date = sightings['Date'];
-                      var time = sightings['Time'];
-                      int num = sightings['Number'];
-                      items.add(Sighting(name, date, time, num));
-                    });
-                  },
-                ));
-              },
-            ),
+            display,
           ],
         )));
   }
