@@ -22,7 +22,7 @@ Future<void> main() async {
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Flutter Demo',
+      title: 'UK Nature Reseve data',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
