@@ -12,12 +12,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class EditSightingsRoute extends StatefulWidget {
+class EditButterflySightingsRoute extends StatefulWidget {
   @override
-  State createState() => _EditSightingsRouteState();
+  State createState() => _EditButterflySightingsRouteState();
 }
 
-class _EditSightingsRouteState extends State<EditSightingsRoute> {
+class _EditButterflySightingsRouteState
+    extends State<EditButterflySightingsRoute> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   final geo = Geoflutterfire();
@@ -178,7 +179,7 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
                         child: Container(
                             width: MediaQuery.of(context).size.width / 1.2,
                             height: MediaQuery.of(context).size.height / 6,
-                            child: Text("Date: " + document['date'])),
+                            child: Text("Date: " + document['Date'])),
                       );
                     }).toList(),
                   );
