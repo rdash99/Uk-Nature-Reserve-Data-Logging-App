@@ -162,7 +162,7 @@ class _EditBirdSightingsRouteState extends State<EditBirdSightingsRoute> {
             Selection_box,
             StreamBuilder(
                 stream: FirebaseFirestore.instance
-                    .collection('Butterfly_Sightings')
+                    .collection('Bird_Sightings')
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
