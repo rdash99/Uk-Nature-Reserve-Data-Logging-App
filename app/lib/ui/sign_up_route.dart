@@ -196,14 +196,14 @@ class _SignUpRouteState extends State<SignUpRoute> {
                     password: Globals.GlobalData.password);
 
             Globals.GlobalData.userID = auth.currentUser.uid;
-            FirebaseFirestore.instance
+            /* FirebaseFirestore.instance
                 .collection('Users')
                 .doc(Globals.GlobalData.userID)
                 .set({
               "FirstName": Globals.GlobalData.firstName,
               "Surname": Globals.GlobalData.surname,
               "Email": Globals.GlobalData.email,
-            });
+            }); */
             Globals.GlobalData.userID = FirebaseAuth.instance.currentUser.uid;
             // go to home screen
             Navigator.push(
