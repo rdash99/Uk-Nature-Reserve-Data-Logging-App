@@ -23,9 +23,9 @@ class TabNavigationItem {
             page: AddSightingsRoute(),
             title: "Add a sighting",
             icon: Icon(Icons.add_circle)),
-        TabNavigationItem(
+        /* TabNavigationItem(
             page: EditSightingsRoute(),
             title: "Edit sightings",
-            icon: Icon(Icons.edit)),
+            icon: Icon(Icons.edit)), */
       ];
 }
