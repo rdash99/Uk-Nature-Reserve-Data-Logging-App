@@ -72,7 +72,18 @@ class _HomeRouteState extends State<HomeRoute> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginRoute()));
     } */
-    FirebaseAuth.instance.userChanges().listen((User user) {
+    if (FirebaseAuth.instance.currentUser != null) {
+      setState(() {
+        _isVisible2 = true;
+        _isVisible1 = false;
+      });
+    } else {
+      setState(() {
+        _isVisible2 = true;
+        _isVisible1 = false;
+      });
+    }
+    /* FirebaseAuth.instance.userChanges().listen((User user) {
       if (user == null) {
         setState(() {
           _isVisible2 = true;
@@ -84,7 +95,7 @@ class _HomeRouteState extends State<HomeRoute> {
           _isVisible1 = true;
         });
       }
-    });
+    }); */
 
     return Scaffold(
         appBar: AppBar(
