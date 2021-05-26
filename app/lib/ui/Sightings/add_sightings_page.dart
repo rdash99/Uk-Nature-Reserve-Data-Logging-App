@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:geolocator/geolocator.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class AddSightingsRoute extends StatefulWidget {
   @override
@@ -334,10 +335,47 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 'Time': finalTime,
                 'Location': {'Latitude': latitude, 'Longitude': longitude},
                 'LocationGeoPoint': geoPoint.data,
-              }).then((value) => print("Butterfly sighting Added")).catchError(
-                  (error) => print("Failed to add butterfly sighting: $error"));
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => TabsPage()));
+              })
+                  .then((value) => Alert(
+                        context: context,
+                        type: AlertType.success,
+                        title: 'Success',
+                        desc: 'Sighting added sucessfully.',
+                        buttons: [
+                          DialogButton(
+                            child: Text("Go back to the home page",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20)),
+                            onPressed: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TabsPage()))
+                            },
+                            width: 120,
+                          )
+                        ],
+                      ).show())
+                  .catchError((error) => Alert(
+                        context: context,
+                        type: AlertType.error,
+                        title: 'Error',
+                        desc: 'Sighting not added due to $error',
+                        buttons: [
+                          DialogButton(
+                            child: Text("Go back to the home page",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20)),
+                            onPressed: () => {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TabsPage()))
+                            },
+                            width: 120,
+                          )
+                        ],
+                      ).show());
             },
             color: Colors.blue,
           ),
