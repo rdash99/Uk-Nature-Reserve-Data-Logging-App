@@ -10,6 +10,7 @@ import 'Sightings/add_sightings_page.dart';
 import 'package:app/Page_navigation/tab_navigation_items.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomeRoute extends StatefulWidget {
   @override
@@ -33,12 +34,12 @@ class _HomeRouteState extends State<HomeRoute> {
   Widget build(BuildContext context) {
     final menu = Column(
       children: <Widget>[
-        ListTile(
+        /* ListTile(
           title: Text("Identify"),
           onTap: () {
             Navigator.popUntil(context, ModalRoute.withName("/identify"));
           },
-        ),
+        ), */
 
         //log out button
         Visibility(
