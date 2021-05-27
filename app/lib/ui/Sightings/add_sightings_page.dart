@@ -376,7 +376,7 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                             },
                             padding: const EdgeInsets.all(16.0),
                             //width: 120,
-                            height: 120,
+                            height: 60,
                           )
                         ],
                       ).show());
