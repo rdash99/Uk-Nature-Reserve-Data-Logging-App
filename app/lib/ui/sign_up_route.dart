@@ -8,6 +8,7 @@ import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'home_route.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
