@@ -352,7 +352,9 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                                   MaterialPageRoute(
                                       builder: (context) => TabsPage()))
                             },
-                            width: 120,
+                            padding: const EdgeInsets.all(16.0),
+                            //width: 120,
+                            height: 120,
                           )
                         ],
                       ).show())
@@ -372,7 +374,9 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                                   MaterialPageRoute(
                                       builder: (context) => TabsPage()))
                             },
-                            width: 120,
+                            padding: const EdgeInsets.all(16.0),
+                            //width: 120,
+                            height: 120,
                           )
                         ],
                       ).show());
