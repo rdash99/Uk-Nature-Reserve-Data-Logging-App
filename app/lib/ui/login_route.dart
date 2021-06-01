@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class LoginRoute extends StatefulWidget {
   @override
@@ -105,13 +106,13 @@ class _LoginRouteState extends State<LoginRoute> {
                 context, MaterialPageRoute(builder: (context) => TabsPage()));
           } on FirebaseAuthException catch (e) {
             if (e.code == 'user-not-found') {
-              print('No user found for that email.');
+              print('No user with that email exists.');
               setState(() {
                 _isVisible1 = false;
                 _isVisible2 = true;
               });
             } else if (e.code == 'wrong-password.') {
-              print('Incorrect password!');
+              print('Incorrect password.');
               setState(() {
                 _isVisible2 = false;
                 _isVisible1 = true;
