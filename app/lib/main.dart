@@ -29,7 +29,7 @@ Future<void> main() async {
 class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'UK Nature Reseve data',
+      title: 'UK Nature Reserve data',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
