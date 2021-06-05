@@ -4,6 +4,7 @@ class GlobalData {
   static var password_2 = '';
   static var password = '';
   static var userID = '';
+  static var Username = '';
   static var firstName = '';
   static var surname = '';
   static var butterBird = '';
