@@ -9,12 +9,12 @@ class SightingCard extends StatefulWidget {
   final double cardHeight;
 
   const SightingCard(
-      {@required this.serviceIcon,
-      this.serviceTitle,
-      this.serviceDescription,
-      this.serviceLink,
-      this.cardHeight,
-      this.cardWidth});
+      {required this.serviceIcon,
+      required this.serviceTitle,
+      required this.serviceDescription,
+      required this.serviceLink,
+      required this.cardHeight,
+      required this.cardWidth});
 
   @override
   _SightingCardState createState() => _SightingCardState();
@@ -23,5 +23,7 @@ class SightingCard extends StatefulWidget {
 class _SightingCardState extends State<SightingCard> {
   bool isHover = false;
   @override
-  Widget build(BuildContext context) {}
+  Widget build(BuildContext context) {
+    return Text("You shouldn't be here.");
+  }
 }

@@ -23,7 +23,7 @@ class _EditButterflySightingsRouteState
 
   final geo = Geoflutterfire();
 
-  var userid = FirebaseAuth.instance.currentUser.uid;
+  var userid = FirebaseAuth.instance.currentUser!.uid;
 
   CollectionReference butterfly_sightings =
       FirebaseFirestore.instance.collection('Butterfly_Sightings');
@@ -31,6 +31,7 @@ class _EditButterflySightingsRouteState
   bool Selection = true;
   var dropdownValue1 = 'Adonis Blue';
   var SpeciesButterfly = 'Adonis Blue';
+  // ignore: deprecated_member_use
   final List items = new List();
 
   @override
@@ -45,9 +46,9 @@ class _EditButterflySightingsRouteState
               iconSize: 24,
               elevation: 16,
               style: TextStyle(color: Colors.blue),
-              onChanged: (String newValue) {
+              onChanged: (String? newValue) {
                 setState(() {
-                  dropdownValue1 = newValue;
+                  dropdownValue1 = newValue!;
                   SpeciesButterfly = newValue;
                 });
               },
@@ -174,7 +175,7 @@ class _EditButterflySightingsRouteState
                   }
 
                   return ListView(
-                    children: snapshot.data.docs.map((document) {
+                    children: snapshot.data!.docs.map((document) {
                       return Center(
                         child: Container(
                             width: MediaQuery.of(context).size.width / 1.2,

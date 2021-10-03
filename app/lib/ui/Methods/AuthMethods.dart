@@ -10,7 +10,7 @@ class Auth {
   Future<void> userSetup(String displayName) async {
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
     FirebaseAuth auth = FirebaseAuth.instance;
-    String uid = auth.currentUser.uid.toString();
+    String uid = auth.currentUser!.uid.toString();
     users.add({'Username': displayName, 'uid': uid});
   }
 
@@ -68,7 +68,7 @@ class Auth {
     }
   }
 
-  Future<void> signOut() async {
+  Future<bool?> signOut() async {
     BuildContext context;
     try {
       await FirebaseAuth.instance.signOut();
@@ -96,13 +96,13 @@ class Auth {
   }
 
   verifyEmail() {
-    User user = FirebaseAuth.instance.currentUser;
-    user.sendEmailVerification();
+    User? user = FirebaseAuth.instance.currentUser;
+    user!.sendEmailVerification();
   }
 
   checkVerified() {
-    User user = FirebaseAuth.instance.currentUser;
-    bool verified = user.emailVerified;
+    User? user = FirebaseAuth.instance.currentUser;
+    bool verified = user!.emailVerified;
     user.reload();
     return verified;
   }

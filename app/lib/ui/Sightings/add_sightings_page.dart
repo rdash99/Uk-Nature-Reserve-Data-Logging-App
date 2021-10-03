@@ -19,8 +19,8 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   final geo = Geoflutterfire();
-  String eng_Name;
-  String latin_Name;
+  late String eng_Name;
+  late String latin_Name;
   var location;
   bool bird_visible = false;
   bool butterfly_visible = true;
@@ -76,9 +76,9 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           iconSize: 24,
           elevation: 16,
           style: TextStyle(color: Colors.blue),
-          onChanged: (String newValue) {
+          onChanged: (String? newValue) {
             setState(() {
-              dropdownValueButterflies = newValue;
+              dropdownValueButterflies = newValue!;
               Globals.GlobalData.butterBird = dropdownValueButterflies;
               check();
             });
@@ -110,9 +110,9 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               iconSize: 24,
               elevation: 16,
               style: TextStyle(color: Colors.blue),
-              onChanged: (String newValue) {
+              onChanged: (String? newValue) {
                 setState(() {
-                  dropdownValueButterflies1 = newValue;
+                  dropdownValueButterflies1 = newValue!;
                   SpeciesButterfly = newValue;
                   check();
                 });
@@ -203,9 +203,9 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               iconSize: 24,
               elevation: 16,
               style: TextStyle(color: Colors.deepPurple),
-              onChanged: (String newValue) {
+              onChanged: (String? newValue) {
                 setState(() {
-                  dropdownValueButterflies2 = newValue;
+                  dropdownValueButterflies2 = newValue!;
                   check();
                 });
               },

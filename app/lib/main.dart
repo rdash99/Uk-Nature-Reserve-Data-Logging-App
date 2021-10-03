@@ -14,13 +14,14 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Page_navigation/tabs_page.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:app/ui/test_page.dart';
 
-FirebaseAnalytics analytics;
+late FirebaseAnalytics analytics;
 Future<void> main() async {
   await WidgetsFlutterBinding.ensureInitialized();
-  final String DocsPath =
+  /* final String DocsPath =
       await path_provider.getApplicationDocumentsDirectory().toString();
-  await Hive.init(DocsPath);
+  await Hive.init(DocsPath); */
   analytics = FirebaseAnalytics();
   await Firebase.initializeApp();
   runApp(App());
@@ -43,6 +44,7 @@ class App extends StatelessWidget {
         "/edit": (context) => EditSightingsRoute(),
         "/butterflyedit": (context) => EditButterflySightingsRoute(),
         "/birdedit": (context) => EditBirdSightingsRoute(),
+        "/test": (context) => TestRoute()
       },
       initialRoute: "/login",
     );

@@ -11,6 +11,7 @@ import 'package:app/Page_navigation/tab_navigation_items.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:syncfusion_flutter_maps/maps.dart';
 
 class HomeRoute extends StatefulWidget {
   @override
@@ -106,22 +107,14 @@ class _HomeRouteState extends State<HomeRoute> {
           child: Column(
             children: [
               UserAccountsDrawerHeader(
-                accountName: Text(FirebaseAuth.instance.currentUser.uid),
-                accountEmail: Text(FirebaseAuth.instance.currentUser.email),
+                accountName: Text(FirebaseAuth.instance.currentUser!.uid),
+                accountEmail: Text(FirebaseAuth.instance.currentUser!.email!),
               ),
               menu,
             ],
           ),
         ),
         //display map
-        body:
-            /* GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
-        ),
-      ), */
-            Text('Hello'));
+        body: Center(child: Text('Hello')));
   }
 }

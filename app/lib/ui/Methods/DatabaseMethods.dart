@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-Future<void> storeButterfly(
+Future<bool?> storeButterfly(
     String Species, Number, Date, Time, lat, long, Point) async {
   BuildContext context;
-  User user = FirebaseAuth.instance.currentUser;
-  var uid = user.uid;
+  User? user = FirebaseAuth.instance.currentUser;
+  var uid = user!.uid;
   FirebaseFirestore fire = FirebaseFirestore.instance;
   var ref = fire.collection('Butterfly_Sightings');
   try {
@@ -63,11 +63,11 @@ Future<void> storeButterfly(
   }
 }
 
-Future<void> storeBird(
+Future<bool?> storeBird(
     String Species, Number, Date, Time, lat, long, Point) async {
   BuildContext context;
-  User user = FirebaseAuth.instance.currentUser;
-  var uid = user.uid;
+  User? user = FirebaseAuth.instance.currentUser;
+  var uid = user!.uid;
   FirebaseFirestore fire = FirebaseFirestore.instance;
   var ref = fire.collection('Bird_Sightings');
   try {
