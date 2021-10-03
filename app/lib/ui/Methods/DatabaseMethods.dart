@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+late final context;
 Future<bool?> storeButterfly(
     String Species, Number, Date, Time, lat, long, Point) async {
   BuildContext context;
