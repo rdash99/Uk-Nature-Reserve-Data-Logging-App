@@ -24,9 +24,9 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   var location;
   bool bird_visible = false;
   bool butterfly_visible = true;
-  var dropdownValue = 'Butterflies';
-  var dropdownValue1 = 'Adonis Blue';
-  var dropdownValue2 = 'Birds';
+  var dropdownValueButterflies = 'Butterflies';
+  var dropdownValueButterflies1 = 'Adonis Blue';
+  var dropdownValueButterflies2 = 'Birds';
   var UserID = Globals.GlobalData.userID;
   var SpeciesButterfly = 'test';
   var dateTime = '';
@@ -71,15 +71,15 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
     final SelectionOptions = Padding(
         padding: const EdgeInsets.all(16.0),
         child: DropdownButtonFormField(
-          value: dropdownValue,
+          value: dropdownValueButterflies,
           icon: Icon(Icons.arrow_downward),
           iconSize: 24,
           elevation: 16,
           style: TextStyle(color: Colors.blue),
           onChanged: (String newValue) {
             setState(() {
-              dropdownValue = newValue;
-              Globals.GlobalData.butterBird = dropdownValue;
+              dropdownValueButterflies = newValue;
+              Globals.GlobalData.butterBird = dropdownValueButterflies;
               check();
             });
           },
@@ -105,14 +105,14 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
         child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: DropdownButtonFormField(
-              value: dropdownValue1,
+              value: dropdownValueButterflies1,
               icon: Icon(Icons.arrow_downward),
               iconSize: 24,
               elevation: 16,
               style: TextStyle(color: Colors.blue),
               onChanged: (String newValue) {
                 setState(() {
-                  dropdownValue1 = newValue;
+                  dropdownValueButterflies1 = newValue;
                   SpeciesButterfly = newValue;
                   check();
                 });
@@ -198,14 +198,14 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
         child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: DropdownButtonFormField(
-              value: dropdownValue2,
+              value: dropdownValueButterflies2,
               icon: Icon(Icons.arrow_downward),
               iconSize: 24,
               elevation: 16,
               style: TextStyle(color: Colors.deepPurple),
               onChanged: (String newValue) {
                 setState(() {
-                  dropdownValue2 = newValue;
+                  dropdownValueButterflies2 = newValue;
                   check();
                 });
               },
