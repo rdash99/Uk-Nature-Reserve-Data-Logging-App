@@ -100,21 +100,24 @@ class _HomeRouteState extends State<HomeRoute> {
     }); */
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
+      appBar: AppBar(
+        title: Text("Home"),
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text(FirebaseAuth.instance.currentUser!.uid),
+              accountEmail: Text(FirebaseAuth.instance.currentUser!.email!),
+            ),
+            menu,
+          ],
         ),
-        drawer: Drawer(
-          child: Column(
-            children: [
-              UserAccountsDrawerHeader(
-                accountName: Text(FirebaseAuth.instance.currentUser!.uid),
-                accountEmail: Text(FirebaseAuth.instance.currentUser!.email!),
-              ),
-              menu,
-            ],
-          ),
-        ),
-        //display map
-        body: Center(child: Text('Hello')));
+      ),
+      //display map
+      body: Center(
+          child: Text(
+              'This is an alpha version and many features do not work or are not implemented yet - use at your own risk and if you encounter any errors please open an issue on GitHub.')),
+    );
   }
 }

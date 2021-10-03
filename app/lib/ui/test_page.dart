@@ -14,11 +14,11 @@ class TestRoute extends StatefulWidget {
 }
 
 class _TestRouteState extends State<TestRoute> {
-  final Stream<QuerySnapshot> _butterflyStream =
+  final Stream<QuerySnapshot<Map<String, dynamic>>> _butterflyStream =
       FirebaseFirestore.instance.collection('Butterfly_Sightings').snapshots();
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: _butterflyStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {

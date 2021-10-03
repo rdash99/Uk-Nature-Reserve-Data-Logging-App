@@ -30,8 +30,7 @@ class _EditSightingsRouteState extends State<EditSightingsRoute> {
   bool Selection = true;
   var dropdownValue1 = 'Adonis Blue';
   var SpeciesButterfly = 'Adonis Blue';
-  // ignore: deprecated_member_use
-  final List items = new List();
+  final List items = new List.empty();
 
   @override
   Widget build(BuildContext context) {
