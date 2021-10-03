@@ -1,5 +1,5 @@
 import 'package:app/Page_navigation/tabs_page.dart';
-import 'package:app/ui/Sightings/models/sighting.dart';
+//import 'package:app/ui/Sightings/models/sighting.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
