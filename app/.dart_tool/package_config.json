@@ -3,13 +3,13 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-27.0.0",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-29.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-2.4.0",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-2.6.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -93,7 +93,7 @@
     },
     {
       "name": "cli_util",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/cli_util-0.3.4",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/cli_util-0.3.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -309,19 +309,19 @@
     },
     {
       "name": "geolocator",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator-7.6.2",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator-7.7.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "geolocator_android",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator_android-1.0.2",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator_android-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "geolocator_apple",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator_apple-1.2.1",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/geolocator_apple-1.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -381,9 +381,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.3",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "http_multi_server",
@@ -417,9 +417,9 @@
     },
     {
       "name": "json_annotation",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.1.0",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "logging",
@@ -441,7 +441,7 @@
     },
     {
       "name": "mime",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/mime-1.0.0",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/mime-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -488,12 +488,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "pedantic",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/pedantic-1.11.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "platform",
       "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/platform-3.0.2",
       "packageUri": "lib/",
@@ -513,9 +507,9 @@
     },
     {
       "name": "process",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.3",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/process-4.2.4",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "pub_semver",
@@ -603,15 +597,15 @@
     },
     {
       "name": "syncfusion_flutter_core",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-19.3.43+1",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-18.4.49",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.1"
     },
     {
       "name": "syncfusion_flutter_maps",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_maps-19.3.43-beta",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_maps-18.2.59-beta",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.1"
     },
     {
       "name": "term_glyph",
@@ -674,7 +668,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-10-03T14:07:19.844307Z",
+  "generated": "2021-10-18T18:00:37.757588Z",
   "generator": "pub",
   "generatorVersion": "2.14.2"
 }
