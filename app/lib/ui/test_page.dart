@@ -28,17 +28,20 @@ class _TestRouteState extends State<TestRoute> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Text("Loading");
           }
-
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
-              return ListTile(
-                title: Text(data['full_name']),
-                subtitle: Text(data['company']),
-              );
-            }).toList(),
-          );
+          if (snapshot.hasData) {
+            return ListView(
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
+                return ListTile(
+                  title: Text(data['Species']),
+                  //subtitle: Text(data['date']),
+                );
+              }).toList(),
+            );
+          } else {
+            return Text("No data");
+          }
         });
   }
 }
