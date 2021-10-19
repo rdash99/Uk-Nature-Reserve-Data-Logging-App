@@ -62,8 +62,8 @@ dependencies:
   geoflutterfire: 
 
   #mapping
-  google_maps_flutter: ^2.0.5
-  syncfusion_flutter_maps:
+  #google_maps_flutter: ^2.0.5
+  #syncfusion_flutter_maps:
 
   rflutter_alert:
    git: git://github.com/RatelHub/rflutter_alert.git
