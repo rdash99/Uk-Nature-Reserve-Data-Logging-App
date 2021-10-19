@@ -35,7 +35,12 @@ class _TestRouteState extends State<TestRoute> {
                     document.data()! as Map<String, dynamic>;
                 return ListTile(
                   title: Text(data['Species']),
-                  //subtitle: Text(data['date']),
+                  subtitle: Text('Date: ' +
+                      data['Date'] +
+                      ' Time: ' +
+                      data['Time'] +
+                      ' Number: ' +
+                      data['Number'].toString()),
                 );
               }).toList(),
             );
