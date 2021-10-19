@@ -1,4 +1,4 @@
-import 'package:syncfusion_flutter_maps/maps.dart';
+/* import 'package:syncfusion_flutter_maps/maps.dart';
 import 'package:flutter/material.dart';
 
 late List<Model> data;
@@ -79,3 +79,4 @@ class Model {
   Color color;
   String stateCode;
 }
+ */

@@ -9,9 +9,9 @@ import 'package:geolocator/geolocator.dart';
 import 'Sightings/add_sightings_page.dart';
 import 'package:app/Page_navigation/tab_navigation_items.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+//import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:syncfusion_flutter_maps/maps.dart';
+//import 'package:syncfusion_flutter_maps/maps.dart';
 
 class HomeRoute extends StatefulWidget {
   @override
