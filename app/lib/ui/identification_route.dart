@@ -23,7 +23,7 @@ class _IdentificationRouteState extends State<IdentificationRoute> {
                 minWidth: 200.0,
                 height: 48.0,
                 child: Text(
-                  "GO BACK",
+                  "GO BACK - you shouldn't be here!",
                   style: TextStyle(color: Colors.white, fontSize: 16.0),
                 ),
                 color: Colors.blue,
