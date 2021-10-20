@@ -3,7 +3,6 @@ import 'package:app/ui/Sightings/edit_sightings_page.dart';
 import 'package:app/ui/Sightings/EditPages/edit_sightings_page_butterflies.dart';
 import 'package:app/ui/Sightings/EditPages/edit_sightings_page_birds.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'ui/login_route.dart';
 import 'ui/home_route.dart';
 import 'ui/sign_up_route.dart';
@@ -19,9 +18,6 @@ import 'package:app/ui/test_page.dart';
 late FirebaseAnalytics analytics;
 Future<void> main() async {
   await WidgetsFlutterBinding.ensureInitialized();
-  /* final String DocsPath =
-      await path_provider.getApplicationDocumentsDirectory().toString();
-  await Hive.init(DocsPath); */
   analytics = FirebaseAnalytics();
   await Firebase.initializeApp();
   runApp(App());

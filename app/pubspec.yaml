@@ -50,8 +50,6 @@ dependencies:
   #storage
   cloud_firestore: ^2.2.0
   firebase_storage: ^8.1.0
-  hive: ^2.0.4
-  hive_flutter: ^1.0.0
 
   # For OS-specific directory paths
   path_provider: 
@@ -69,7 +67,6 @@ dependencies:
    git: git://github.com/RatelHub/rflutter_alert.git
 
 dev_dependencies:
-  hive_generator: ^1.1.0
   build_runner: ^2.0.4
   #flutter_test:
   #   sdk: flutter

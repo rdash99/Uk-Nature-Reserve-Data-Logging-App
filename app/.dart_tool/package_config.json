@@ -344,24 +344,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "hive",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/hive-2.0.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "hive_flutter",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/hive_flutter-1.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "hive_generator",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/hive_generator-1.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "http",
       "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.4",
       "packageUri": "lib/",
@@ -536,18 +518,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "source_gen",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/source_gen-1.1.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "source_helper",
-      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/source_helper-1.3.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "source_span",
       "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.1",
       "packageUri": "lib/",
@@ -638,7 +608,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-10-19T13:43:27.346170Z",
+  "generated": "2021-10-20T09:35:09.756571Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }
