@@ -15,7 +15,11 @@ class TestRoute extends StatefulWidget {
 
 class _TestRouteState extends State<TestRoute> {
   final Stream<QuerySnapshot<Map<String, dynamic>>> _butterflyStream =
-      FirebaseFirestore.instance.collection('Butterfly_Sightings').snapshots();
+      FirebaseFirestore.instance
+          .collection('Species')
+          .doc('Butterflies')
+          .collection('Butterflies')
+          .snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
@@ -34,13 +38,8 @@ class _TestRouteState extends State<TestRoute> {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
                 return ListTile(
-                  title: Text(data['Species']),
-                  subtitle: Text('Date: ' +
-                      data['Date'] +
-                      ' Time: ' +
-                      data['Time'] +
-                      ' Number: ' +
-                      data['Number'].toString()),
+                  title: Text(data['Eng_Name']),
+                  subtitle: Text('Latin: ' + data['Latin_Name']),
                 );
               }).toList(),
             );
