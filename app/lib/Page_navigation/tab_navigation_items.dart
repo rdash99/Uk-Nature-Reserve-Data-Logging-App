@@ -1,6 +1,7 @@
 import 'package:app/ui/Sightings/add_sightings_page.dart';
 import 'package:app/ui/Sightings/edit_sightings_page.dart';
 import 'package:app/ui/home_route.dart';
+import 'package:app/ui/identification_route.dart';
 import 'package:app/ui/login_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,5 +27,9 @@ class TabNavigationItem {
             icon: Icon(Icons.add_circle)),
         TabNavigationItem(
             page: TestRoute(), title: "Test", icon: Icon(Icons.edit)),
+        TabNavigationItem(
+            page: IdentificationRoute(),
+            title: "Identification",
+            icon: Icon(Icons.search)),
       ];
 }
