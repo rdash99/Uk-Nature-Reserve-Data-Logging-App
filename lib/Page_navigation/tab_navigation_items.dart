@@ -20,16 +20,20 @@ class TabNavigationItem {
 
   static List<TabNavigationItem> get items => [
         TabNavigationItem(
-            page: HomeRoute(), title: "Home", icon: Icon(Icons.home)),
+            page: HomeRoute(),
+            title: "Home",
+            icon: Icon(Icons.home, color: Colors.black)),
         TabNavigationItem(
             page: AddSightingsRoute(),
             title: "Add a sighting",
-            icon: Icon(Icons.add_circle)),
+            icon: Icon(Icons.add_circle, color: Colors.black)),
         TabNavigationItem(
-            page: TestRoute(), title: "Test", icon: Icon(Icons.edit)),
+            page: TestRoute(),
+            title: "Test",
+            icon: Icon(Icons.edit, color: Colors.black)),
         TabNavigationItem(
             page: IdentificationRoute(),
             title: "Identification",
-            icon: Icon(Icons.search)),
+            icon: Icon(Icons.search, color: Colors.black)),
       ];
 }
