@@ -21,6 +21,6 @@ class speciesData {
 
         info.add("English Name: " + data['Eng_Name']);
       }
-    });
+    }); //move to new branch
   }
 }
