@@ -45,7 +45,10 @@ dependencies:
   #firebase_performance: ^0.7.0+3
 
   #validation
-  email_validator: 
+  email_validator:
+  
+  #settings
+  settings_ui:
 
   #storage
   cloud_firestore: ^2.2.0
