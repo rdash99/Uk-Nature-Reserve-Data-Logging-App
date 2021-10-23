@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:app/ui/SettingsPage.dart';
+
 import 'ui/Sightings/edit_sightings_page.dart';
 import 'ui/Sightings/EditPages/edit_sightings_page_butterflies.dart';
 import 'ui/Sightings/EditPages/edit_sightings_page_birds.dart';
@@ -40,7 +42,8 @@ class App extends StatelessWidget {
         "/edit": (context) => EditSightingsRoute(),
         "/butterflyedit": (context) => EditButterflySightingsRoute(),
         "/birdedit": (context) => EditBirdSightingsRoute(),
-        "/test": (context) => TestRoute()
+        "/test": (context) => TestRoute(),
+        "/settings": (context) => SettingsRoute()
       },
       initialRoute: "/login",
     );
