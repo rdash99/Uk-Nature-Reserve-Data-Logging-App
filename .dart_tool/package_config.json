@@ -482,6 +482,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "settings_ui",
+      "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/settings_ui-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "shelf",
       "rootUri": "file:///opt/homebrew/Caskroom/flutter/2.5.1/flutter/.pub-cache/hosted/pub.dartlang.org/shelf-1.2.0",
       "packageUri": "lib/",
@@ -590,7 +596,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-10-21T18:04:44.241385Z",
+  "generated": "2021-10-21T19:06:33.228266Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }
