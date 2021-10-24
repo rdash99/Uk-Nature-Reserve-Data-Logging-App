@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 class speciesData {
-  getButterflySpeciesText(String species) {
+  getButterflySpeciesText() {
     List info = [];
     CollectionReference butterflyInfo = FirebaseFirestore.instance
         .collection('Species')
@@ -21,6 +21,6 @@ class speciesData {
 
         info.add("English Name: " + data['Eng_Name']);
       }
-    }); //move to new branch
+    });
   }
 }
