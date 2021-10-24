@@ -20,7 +20,11 @@ Future<void> main() async {
   await WidgetsFlutterBinding.ensureInitialized();
   analytics = FirebaseAnalytics();
   await Firebase.initializeApp();
-  await FirebaseFirestore.instance.enablePersistence();
+  try {
+    await FirebaseFirestore.instance.enablePersistence();
+  } catch (error) {
+    print(error);
+  }
   runApp(App());
 }
 
