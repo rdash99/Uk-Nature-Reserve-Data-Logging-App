@@ -1,3 +1,19 @@
 
 comSciAlevelNatureReserveApp/Flutter/friendlyeats-flutter/
 build/NatureReserveWebBuild/
+*.old
+*.log
+*.dill
+.dart_tool/chrome-device/Default/Sessions/Session_13279574223213268
+.dart_tool/chrome-device/Default/Sessions/Tabs_13279574223804844
+.dart_tool/chrome-device/Default/Service Worker/ScriptCache/67a473248953641b_0
+.dart_tool/chrome-device/Default/QuotaManager
+.dart_tool/chrome-device/Default/QuotaManager-journal
+*.ldb
+.dart_tool/chrome-device/Default/IndexedDB/http_localhost_55995.indexeddb.leveldb/CURRENT
+.dart_tool/chrome-device/Default/IndexedDB/http_localhost_55995.indexeddb.leveldb/LOCK
+*.old
+.dart_tool/chrome-device/Default/data_reduction_proxy_leveldb/LOG
+.dart_tool/chrome-device/Default/data_reduction_proxy_leveldb/MANIFEST-000010
+.dart_tool/chrome-device/Default/data_reduction_proxy_leveldb/CURRENT
+*.nWDoYs
