@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -8,7 +9,7 @@ class SettingsRoute extends StatefulWidget {
 
 class _SettingsRouteState extends State<SettingsRoute> {
   Widget build(BuildContext context) {
-    bool value = false;
+    bool isSwitched = true;
     return SettingsList(
       sections: [
         SettingsSection(
@@ -21,11 +22,20 @@ class _SettingsRouteState extends State<SettingsRoute> {
               onPressed: (BuildContext context) {},
             ),
             SettingsTile.switchTile(
-                title: 'Fingers?',
-                leading: Icon(Icons.fingerprint, color: Colors.black),
-                switchValue: value,
-                onToggle: (bool value) {
-                  //todo set value method
+                title: 'Internet connection',
+                leading: Icon(Icons.wifi, color: Colors.black),
+                switchValue: isSwitched,
+                onToggle: (bool value) async {
+                  if (value == true) {
+                    await FirebaseFirestore.instance.enableNetwork();
+                  } else if (isSwitched = value) {
+                    await FirebaseFirestore.instance.disableNetwork();
+                  }
+
+                  print(value);
+                  setState(() {
+                    value = !value;
+                  });
                 }),
           ],
         )
