@@ -25,6 +25,7 @@ Future<void> main() async {
   analytics = FirebaseAnalytics();
   await Firebase.initializeApp();
   await Settings.init();
+  await Settings.setValue<bool>('key-switch-network', true);
   runApp(App());
 }
 
