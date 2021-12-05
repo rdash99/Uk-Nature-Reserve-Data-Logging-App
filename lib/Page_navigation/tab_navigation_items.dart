@@ -1,4 +1,5 @@
 import 'package:app/ui/SettingsPage.dart';
+import 'package:app/ui/SettingsPage2.dart';
 import 'package:app/ui/Sightings/add_sightings_page.dart';
 import 'package:app/ui/Sightings/edit_sightings_page.dart';
 import 'package:app/ui/home_route.dart';
@@ -37,7 +38,7 @@ class TabNavigationItem {
             title: "Identification",
             icon: Icon(Icons.search, color: Colors.black)),
         TabNavigationItem(
-            page: SettingsRoute(),
+            page: SettingsRoute2(),
             title: "Settings",
             icon: Icon(Icons.settings, color: Colors.black)),
       ];
