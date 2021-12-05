@@ -117,7 +117,7 @@ class _HomeRouteState extends State<HomeRoute> {
       //display map
       body: Center(
           child: Text(
-              'This is an alpha version and many features do not work or are not implemented yet - use at your own risk and if you encounter any errors please open an issue on GitHub.')),
+              'This is an alpha version and many features do not work or are not implemented yet - use at your own risk and if you encounter any errors please open an issue on GitHub. Flickering is a known issue. Please report any other bugs you find.')),
     );
   }
 }
