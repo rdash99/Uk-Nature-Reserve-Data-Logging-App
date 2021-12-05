@@ -39,7 +39,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
             leading: Icon(MdiIcons.testTube),
             settingKey: 'key-test-page',
             title:
-                'Test page, things in development use at your own risk - Warning causes uncontrollable flickering when enabled for some reason',
+                'Test page, things in development use at your own risk - Warning appears to cause flickering when enabled sometimes',
             onChange: (value) {
               //debugPrint('key-test-page: $value');
             },
