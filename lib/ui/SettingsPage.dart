@@ -29,7 +29,8 @@ class _SettingsRouteState extends State<SettingsRoute> {
       SwitchSettingsTile(
         leading: Icon(Icons.warning_amber),
         settingKey: 'key-switch-experimental-features',
-        title: 'Enable experimental features',
+        title:
+            'Enable experimental features, sometimes causes crashes and flickering',
         onChange: (value) async {
           debugPrint('key-switch-experimental-features: $value');
         },
