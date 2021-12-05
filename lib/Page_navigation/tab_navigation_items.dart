@@ -14,41 +14,33 @@ class TabNavigationItem {
   final Widget page;
   final String title;
   final Icon icon;
-  final bool visible;
 
   TabNavigationItem({
     required this.page,
     required this.title,
     required this.icon,
-    required this.visible,
   });
 
   static List<TabNavigationItem> get items => [
         TabNavigationItem(
             page: HomeRoute(),
             title: "Home",
-            icon: Icon(Icons.home, color: Colors.black),
-            visible: true),
+            icon: Icon(Icons.home, color: Colors.black)),
         TabNavigationItem(
             page: AddSightingsRoute(),
             title: "Add a sighting",
-            icon: Icon(Icons.add_circle, color: Colors.black),
-            visible: true),
+            icon: Icon(Icons.add_circle, color: Colors.black)),
         TabNavigationItem(
             page: TestRoute(),
             title: "Test",
-            icon: Icon(Icons.edit, color: Colors.black),
-            visible: Settings.getValue<bool>(
-                'key-switch-experimental-features', false)),
+            icon: Icon(Icons.edit, color: Colors.black)),
         TabNavigationItem(
             page: IdentificationRoute(),
             title: "Identification",
-            icon: Icon(Icons.search, color: Colors.black),
-            visible: true),
+            icon: Icon(Icons.search, color: Colors.black)),
         TabNavigationItem(
             page: SettingsRoute(),
             title: "Settings",
-            icon: Icon(Icons.settings, color: Colors.black),
-            visible: true),
+            icon: Icon(Icons.settings, color: Colors.black)),
       ];
 }
