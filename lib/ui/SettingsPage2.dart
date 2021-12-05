@@ -27,12 +27,31 @@ class _SettingsRouteState2 extends State<SettingsRoute2> {
             }
           }),
       SwitchSettingsTile(
-          leading: Icon(Icons.warning_amber),
-          settingKey: 'key-switch-experimental-features',
-          title: 'Enable experimental features',
-          onChange: (value) async {
-            debugPrint('key-switch-experimental-features: $value');
-          }),
+        leading: Icon(Icons.warning_amber),
+        settingKey: 'key-switch-experimental-features',
+        title: 'Enable experimental features',
+        onChange: (value) async {
+          debugPrint('key-switch-experimental-features: $value');
+        },
+        childrenIfEnabled: <Widget>[
+          SwitchSettingsTile(
+            leading: Icon(Icons.adb),
+            settingKey: 'key-test-page',
+            title: 'Test page, things in development use at your own risk',
+            onChange: (value) {
+              debugPrint('key-test-page: $value');
+            },
+          ),
+          SwitchSettingsTile(
+            leading: Icon(Icons.usb),
+            settingKey: 'key-is-usb-debugging',
+            title: 'USB Debugging',
+            onChange: (value) {
+              debugPrint('key-is-usb-debugging: $value');
+            },
+          )
+        ],
+      ),
     ]);
   }
 }
