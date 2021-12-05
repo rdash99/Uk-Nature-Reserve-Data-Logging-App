@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 
 class SettingsRoute2 extends StatefulWidget {
   @override
@@ -9,37 +11,28 @@ class SettingsRoute2 extends StatefulWidget {
 
 class _SettingsRouteState2 extends State<SettingsRoute2> {
   Widget build(BuildContext context) {
-    bool isSwitched = true;
-    return SwitchSettingsTile(
-      leading: Icon(Icons.developer_mode),
-      settingKey: 'key-switch-dev-mode',
-      title: 'Developer Settings',
-      onChange: (value) {
-        debugPrint('key-switch-dev-mod: $value');
-      },
-      childrenIfEnabled: <Widget>[
-        CheckboxSettingsTile(
-          leading: Icon(Icons.adb),
-          settingKey: 'key-is-developer',
-          title: 'Developer Mode',
-          onChange: (value) {
-            debugPrint('key-is-developer: $value');
-          },
-        ),
-        SwitchSettingsTile(
-          leading: Icon(Icons.usb),
-          settingKey: 'key-is-usb-debugging',
-          title: 'USB Debugging',
-          onChange: (value) {
-            debugPrint('key-is-usb-debugging: $value');
-          },
-        ),
-        SimpleSettingsTile(
-          title: 'Root Settings',
-          subtitle: 'These settings is not accessible',
-          enabled: false,
-        )
-      ],
-    );
+    return SettingsScreen(title: "Application Settings", children: [
+      SwitchSettingsTile(
+          leading: Icon(Icons.wifi),
+          settingKey: 'key-switch-network',
+          title: 'Network connection',
+          onChange: (value) async {
+            debugPrint('key-switch-wifi-on: $value');
+            if (value == false) {
+              await FirebaseFirestore.instance.disableNetwork();
+              print('Network disabled');
+            } else {
+              await FirebaseFirestore.instance.enableNetwork();
+              print('Network enabled');
+            }
+          }),
+      SwitchSettingsTile(
+          leading: Icon(Icons.warning_amber),
+          settingKey: 'key-switch-experimental-features',
+          title: 'Enable experimental features',
+          onChange: (value) async {
+            debugPrint('key-switch-experimental-features: $value');
+          }),
+    ]);
   }
 }
