@@ -35,7 +35,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
         },
         childrenIfEnabled: <Widget>[
           SwitchSettingsTile(
-            leading: Icon(Icons.adb),
+            leading: Icon(MdiIcons.testTube),
             settingKey: 'key-test-page',
             title: 'Test page, things in development use at your own risk',
             onChange: (value) {
