@@ -6,7 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Settings;
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 class TestRoute extends StatefulWidget {
   @override
@@ -22,32 +23,39 @@ class _TestRouteState extends State<TestRoute> {
           .snapshots();
   @override
   Widget build(BuildContext context) {
+    return Visibility(
+        visible: Settings.getValue<bool>(
+          'key-switch-experimental-features',
+          false,
+        ),
+        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: _butterflyStream,
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Text("Loading");
+              }
+              if (snapshot.hasData) {
+                return ListView(
+                  children:
+                      snapshot.data!.docs.map((DocumentSnapshot document) {
+                    Map<String, dynamic> data =
+                        document.data()! as Map<String, dynamic>;
+                    return ListTile(
+                      title: Text(data['Eng_Name']),
+                      subtitle: Text('Latin: ' + data['Latin_Name']),
+                    );
+                  }).toList(),
+                );
+              } else {
+                return Text("No data");
+              }
+            }));
     //return Image.network(
     //    "https://c.tenor.com/sAdUgAlKEloAAAAM/party-parrot-rgb-rainbow-dance-cool.gif");
-    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: _butterflyStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('Something went wrong');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
-          }
-          if (snapshot.hasData) {
-            return ListView(
-              children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
-                return ListTile(
-                  title: Text(data['Eng_Name']),
-                  subtitle: Text('Latin: ' + data['Latin_Name']),
-                );
-              }).toList(),
-            );
-          } else {
-            return Text("No data");
-          }
-        });
   }
 }
