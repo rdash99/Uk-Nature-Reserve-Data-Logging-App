@@ -32,7 +32,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
         title:
             'Enable experimental features, sometimes causes crashes and flickering',
         onChange: (value) async {
-          debugPrint('key-switch-experimental-features: $value');
+          //debugPrint('key-switch-experimental-features: $value');
         },
         childrenIfEnabled: <Widget>[
           SwitchSettingsTile(
@@ -41,7 +41,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
             title:
                 'Test page, things in development use at your own risk - Warning causes uncontrollable flickering when enabled for some reason',
             onChange: (value) {
-              debugPrint('key-test-page: $value');
+              //debugPrint('key-test-page: $value');
             },
           ),
           SwitchSettingsTile(
@@ -49,7 +49,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
             settingKey: 'key-is-usb-debugging',
             title: 'USB Debugging',
             onChange: (value) {
-              debugPrint('key-is-usb-debugging: $value');
+              //debugPrint('key-is-usb-debugging: $value');
             },
           )
         ],
