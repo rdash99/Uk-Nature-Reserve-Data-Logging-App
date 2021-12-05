@@ -26,6 +26,8 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await Settings.init();
   await Settings.setValue<bool>('key-switch-network', true);
+  await Settings.setValue<bool>('key-switch-experimental-features', false);
+  await Settings.setValue<bool>('key-test-page', false);
   runApp(App());
 }
 
