@@ -25,7 +25,7 @@ class _TestRouteState extends State<TestRoute> {
   Widget build(BuildContext context) {
     return Visibility(
         visible: Settings.getValue<bool>(
-          'key-switch-experimental-features',
+          'key-test-page',
           false,
         ),
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
