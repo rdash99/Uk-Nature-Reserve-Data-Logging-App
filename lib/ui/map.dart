@@ -115,6 +115,15 @@ class _MapRouteState extends State<MapRoute> {
               MapShapeLayer(
                 source: _mapSource,
                 zoomPanBehavior: _zoomPanBehavior,
+                loadingBuilder: (BuildContext context) {
+                  return Container(
+                    height: 25,
+                    width: 25,
+                    child: const CircularProgressIndicator(
+                      strokeWidth: 3,
+                    ),
+                  );
+                },
               ),
             ],
           ),
