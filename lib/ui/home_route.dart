@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'Sightings/add_sightings_page.dart';
@@ -44,7 +45,7 @@ class _HomeRouteState extends State<HomeRoute> {
 
         //log out button
         Visibility(
-          visible: _isVisible1,
+          visible: Settings.getValue<bool>('key-logged-in', false),
           child: ListTile(
             title: Text("Logout"),
             onTap: () async {
@@ -55,7 +56,7 @@ class _HomeRouteState extends State<HomeRoute> {
 
         //login button
         Visibility(
-          visible: _isVisible2,
+          visible: !Settings.getValue<bool>('key-logged-in', false),
           child: ListTile(
             title: Text("Login"),
             onTap: () {
@@ -117,7 +118,7 @@ class _HomeRouteState extends State<HomeRoute> {
       //display map
       body: Center(
           child: Text(
-              'This is an alpha version and many features do not work or are not implemented yet - use at your own risk and if you encounter any errors please open an issue on GitHub.')),
+              'This is an alpha version and many features do not work or are not implemented yet - use at your own risk and if you encounter any errors please open an issue on GitHub. Flickering is a known issue at least in MacOs Safari. Please report any other bugs you find.')),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:app/ui/SettingsPage.dart';
+import 'package:app/ui/SettingsPage.dart';
 import 'package:app/ui/Sightings/add_sightings_page.dart';
 import 'package:app/ui/Sightings/edit_sightings_page.dart';
 import 'package:app/ui/home_route.dart';
@@ -6,6 +8,7 @@ import 'package:app/ui/login_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:app/ui/test_page.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 class TabNavigationItem {
   final Widget page;
@@ -35,5 +38,9 @@ class TabNavigationItem {
             page: IdentificationRoute(),
             title: "Identification",
             icon: Icon(Icons.search, color: Colors.black)),
+        TabNavigationItem(
+            page: SettingsRoute(),
+            title: "Settings",
+            icon: Icon(Icons.settings, color: Colors.black)),
       ];
 }

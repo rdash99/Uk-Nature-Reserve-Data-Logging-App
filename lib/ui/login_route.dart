@@ -1,6 +1,7 @@
 import 'package:app/Page_navigation/tabs_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'home_route.dart';
 import 'sign_up_route.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
@@ -101,6 +102,7 @@ class _LoginRouteState extends State<LoginRoute> {
                     email: Globals.GlobalData.email,
                     password: Globals.GlobalData.password);
             Globals.GlobalData.userID = auth.currentUser!.uid;
+            Settings.setValue<bool>('key-logged-in', true);
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => TabsPage()));
@@ -151,7 +153,7 @@ class _LoginRouteState extends State<LoginRoute> {
 
     //create forgot password button
     final forgotButton = Visibility(
-        visible: _isVisible1,
+        visible: Settings.getValue<bool>('key-show-forgot-pass', false),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Material(
