@@ -1,3 +1,15 @@
 
 comSciAlevelNatureReserveApp/Flutter/friendlyeats-flutter/
 build/NatureReserveWebBuild/
+build/web/main.dart.js
+build/web/flutter_service_worker.js
+build/web/assets/NOTICES
+.flutter-plugins-dependencies
+.dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/web_release_bundle.stamp
+.dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/main.dart.js
+.dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/flutter_assets.d
+.dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/dart2js.stamp
+.dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/dart2js.d
+.dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/app.dill.deps
+.dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/app.dill
+.dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/.filecache
