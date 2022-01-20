@@ -43,9 +43,9 @@ class _SettingsRouteState extends State<SettingsRoute> {
             },
           ),
           SwitchSettingsTile(
-            leading: Icon(Icons.usb),
-            settingKey: 'key-is-usb-debugging',
-            title: 'Unimplemented',
+            leading: Icon(Icons.map),
+            settingKey: 'key-test-map',
+            title: 'Map page',
             onChange: (value) {
               //debugPrint('key-is-usb-debugging: $value');
             },
