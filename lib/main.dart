@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:app/ui/SettingsPage.dart';
 import 'package:app/ui/SettingsPage.dart';
+import 'package:app/ui/map.dart';
 
 import 'ui/Sightings/edit_sightings_page.dart';
 import 'ui/Sightings/EditPages/edit_sightings_page_butterflies.dart';
@@ -27,6 +28,7 @@ Future<void> main() async {
   await Settings.setValue<bool>('key-switch-network', true);
   await Settings.setValue<bool>('key-switch-experimental-features', false);
   await Settings.setValue<bool>('key-test-page', false);
+  await Settings.setValue<bool>('key-test-map', false);
   await Settings.setValue<bool>('key-logged-in', false);
   await Settings.setValue<bool>('key-show-forgot-pass', false);
   runApp(App());
@@ -50,7 +52,8 @@ class App extends StatelessWidget {
         "/butterflyedit": (context) => EditButterflySightingsRoute(),
         "/birdedit": (context) => EditBirdSightingsRoute(),
         "/test": (context) => TestRoute(),
-        "/settings": (context) => SettingsRoute()
+        "/settings": (context) => SettingsRoute(),
+        "/map": (context) => MapRoute(),
       },
       initialRoute: "/login",
     );
