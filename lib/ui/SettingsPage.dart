@@ -29,8 +29,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
       SwitchSettingsTile(
         leading: Icon(Icons.warning_amber),
         settingKey: 'key-switch-experimental-features',
-        title:
-            'Enable experimental features, sometimes causes crashes and flickering',
+        title: 'Enable experimental features, sometimes causes crashes',
         onChange: (value) async {
           //debugPrint('key-switch-experimental-features: $value');
         },
@@ -38,8 +37,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
           SwitchSettingsTile(
             leading: Icon(MdiIcons.testTube),
             settingKey: 'key-test-page',
-            title:
-                'Test page, things in development use at your own risk - Warning appears to cause flickering when enabled sometimes',
+            title: 'Test page, things in development use at your own risk',
             onChange: (value) {
               //debugPrint('key-test-page: $value');
             },
@@ -47,7 +45,7 @@ class _SettingsRouteState extends State<SettingsRoute> {
           SwitchSettingsTile(
             leading: Icon(Icons.usb),
             settingKey: 'key-is-usb-debugging',
-            title: 'USB Debugging',
+            title: 'Unimplemented',
             onChange: (value) {
               //debugPrint('key-is-usb-debugging: $value');
             },

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'Sightings/add_sightings_page.dart';
@@ -44,7 +45,7 @@ class _HomeRouteState extends State<HomeRoute> {
 
         //log out button
         Visibility(
-          visible: _isVisible1,
+          visible: Settings.getValue<bool>('key-logged-in', false),
           child: ListTile(
             title: Text("Logout"),
             onTap: () async {
@@ -55,7 +56,7 @@ class _HomeRouteState extends State<HomeRoute> {
 
         //login button
         Visibility(
-          visible: _isVisible2,
+          visible: !Settings.getValue<bool>('key-logged-in', false),
           child: ListTile(
             title: Text("Login"),
             onTap: () {
