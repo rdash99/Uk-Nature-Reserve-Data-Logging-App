@@ -5,6 +5,7 @@ import 'package:app/ui/Sightings/edit_sightings_page.dart';
 import 'package:app/ui/home_route.dart';
 import 'package:app/ui/identification_route.dart';
 import 'package:app/ui/login_route.dart';
+import 'package:app/ui/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:app/ui/test_page.dart';
@@ -42,5 +43,9 @@ class TabNavigationItem {
             page: SettingsRoute(),
             title: "Settings",
             icon: Icon(Icons.settings, color: Colors.black)),
+        TabNavigationItem(
+            page: MapRoute(),
+            title: "Map",
+            icon: Icon(Icons.map, color: Colors.black)),
       ];
 }
