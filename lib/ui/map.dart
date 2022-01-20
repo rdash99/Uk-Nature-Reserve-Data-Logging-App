@@ -1,3 +1,4 @@
+import 'package:syncfusion_flutter_maps/maps.dart';
 /* import 'package:syncfusion_flutter_maps/maps.dart';
 import 'package:flutter/material.dart';
 
@@ -80,3 +81,45 @@ class Model {
   String stateCode;
 }
  */
+import 'package:flutter/material.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+
+class MapRoute extends StatefulWidget {
+  @override
+  _MapRouteState createState() => _MapRouteState();
+}
+
+class _MapRouteState extends State<MapRoute> {
+  late MapShapeSource _mapSource;
+  late MapZoomPanBehavior _zoomPanBehavior;
+
+  @override
+  void initState() {
+    _zoomPanBehavior = MapZoomPanBehavior();
+    _mapSource = MapShapeSource.asset(
+      'assets/gb.json',
+      shapeDataField: 'features',
+    );
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: Settings.getValue<bool>('key-test-map', false),
+      child: Container(
+        child: Center(
+          child: SfMaps(
+            layers: [
+              MapShapeLayer(
+                source: _mapSource,
+                zoomPanBehavior: _zoomPanBehavior,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
