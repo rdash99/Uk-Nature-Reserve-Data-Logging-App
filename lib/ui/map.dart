@@ -97,7 +97,7 @@ class _MapRouteState extends State<MapRoute> {
   void initState() {
     _zoomPanBehavior = MapZoomPanBehavior();
     _mapSource = MapShapeSource.asset(
-      'assets/gb.json',
+      'assets/uk3.geojson',
       shapeDataField: 'features',
     );
 
