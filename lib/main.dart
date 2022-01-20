@@ -22,7 +22,6 @@ import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 late FirebaseAnalytics analytics;
 Future<void> main() async {
   await WidgetsFlutterBinding.ensureInitialized();
-  analytics = FirebaseAnalytics();
   await Firebase.initializeApp();
   await Settings.init();
   await Settings.setValue<bool>('key-switch-network', true);
