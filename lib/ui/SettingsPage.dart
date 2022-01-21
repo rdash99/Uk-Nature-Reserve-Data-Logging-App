@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'Models/markerModel.dart';
 
 class SettingsRoute extends StatefulWidget {
   @override
@@ -49,7 +50,15 @@ class _SettingsRouteState extends State<SettingsRoute> {
             onChange: (value) {
               //debugPrint('key-is-usb-debugging: $value');
             },
-          )
+          ),
+          SwitchSettingsTile(
+            leading: Icon(Icons.book),
+            settingKey: 'key-is-usb-debugging',
+            title: 'USB debugging',
+            onChange: (value) {
+              markerData.getData();
+            },
+          ),
         ],
       ),
     ]);
