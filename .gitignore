@@ -15,3 +15,5 @@ build/web/assets/NOTICES
 .dart_tool/flutter_build/e427abd331a6d76fba011486dbd5bdfe/.filecache
 assets/uk2.geojson
 assets/uk.geojson
+build/flutter_assets/assets/uk.geojson
+build/flutter_assets/assets/uk2.geojson
