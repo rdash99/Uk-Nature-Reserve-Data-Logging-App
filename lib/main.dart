@@ -28,7 +28,7 @@ Future<void> main() async {
   await Settings.setValue<bool>('key-switch-network', true);
   await Settings.setValue<bool>('key-switch-experimental-features', false);
   await Settings.setValue<bool>('key-test-page', false);
-  await Settings.setValue<bool>('key-test-map', false);
+  await Settings.setValue<bool>('key-test-map', true);
   await Settings.setValue<bool>('key-logged-in', false);
   await Settings.setValue<bool>('key-show-forgot-pass', false);
   runApp(App());
