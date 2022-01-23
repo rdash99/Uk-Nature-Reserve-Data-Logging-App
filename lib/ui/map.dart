@@ -37,28 +37,29 @@ class _MapRouteState extends State<MapRoute> {
     super.initState();
   }
 
+  Stream<QuerySnapshot> butterflyStream =
+      FirebaseFirestore.instance.collection('Butterfly_Sightings').snapshots();
   getData() {
-    Stream<QuerySnapshot> butterflyStream = FirebaseFirestore.instance
-        .collection('Butterfly_Sightings')
-        .snapshots();
-    // ignore: cancel_subscriptions
     StreamSubscription<QuerySnapshot> butterflySubscription =
         butterflyStream.listen((QuerySnapshot snapshot) {
       snapshot.docs.forEach((f) {
         Map<String, dynamic> data = f.data()! as Map<String, dynamic>;
-        _markerList.add(markerModel(data["Latitude"], data["Longitude"]));
+        _markerList.add(markerModel(double.parse(data["Location"]["Latitude"]),
+            double.parse(data["Location"]["Longitude"])));
         _mapController.insertMarker(_markerList.indexOf(_markerList.last));
+        //print(f.data());
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
+    return Scaffold(
+        body: Visibility(
       visible: Settings.getValue<bool>('key-test-map', false),
-      child: Container(
-        child: Center(
-          child: SfMaps(
+      child: Column(
+        children: [
+          SfMaps(
             layers: [
               MapShapeLayer(
                 source: _mapSource,
@@ -95,9 +96,19 @@ class _MapRouteState extends State<MapRoute> {
               ),
             ],
           ),
-        ),
+          ElevatedButton(
+            child: Text('Update markers'),
+            onPressed: () {
+              setState(() {
+                _markerList.clear();
+                _mapController.clearMarkers();
+                getData();
+              });
+            },
+          )
+        ],
       ),
-    );
+    ));
   }
 }
 
