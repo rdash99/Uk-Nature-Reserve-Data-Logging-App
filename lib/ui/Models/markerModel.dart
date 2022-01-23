@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:app/ui/map.dart';
 
 class markerModel {
   markerModel(this.lat, this.lng);
@@ -10,8 +11,6 @@ class markerModel {
 }
 
 class markerData {
-  List<markerModel> markerList = [];
-  markerData(this.markerList);
   static getData() {
     Stream<QuerySnapshot> butterflyStream = FirebaseFirestore.instance
         .collection('Butterfly_Sightings')
@@ -19,7 +18,7 @@ class markerData {
     StreamSubscription<QuerySnapshot> butterflySubscription =
         butterflyStream.listen((QuerySnapshot snapshot) {
       snapshot.docs.forEach((f) {
-        print(f.data());
+        //print(f.data()!['Latitude'] + f.data()['Longitude']);
       });
     });
   }
