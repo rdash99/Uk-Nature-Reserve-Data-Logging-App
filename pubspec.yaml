@@ -66,6 +66,8 @@ dependencies:
   #google_maps_flutter: ^2.0.5
   #syncfusion_flutter_maps:
 
+  rethinkdb_driver: "^2.3.2+2"
+
   rflutter_alert:
     git: git://github.com/RatelHub/rflutter_alert.git
   flutter_settings_screens: ^0.3.2-null-safety
