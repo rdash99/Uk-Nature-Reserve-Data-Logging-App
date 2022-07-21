@@ -30,46 +30,28 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.3
-
   #spinning animations
   flutter_spinkit:
-
   #main firebase plugin
   firebase_core:
-
   #user auth
   firebase_auth:
-
-  #analytics
-  firebase_analytics:
-  #firebase_performance: ^0.7.0+3
-
   #validation
   email_validator:
-
   #settings
   settings_ui:
-
-  #storage
-  cloud_firestore:
-  #firebase_storage: ^8.1.0
-
   # For OS-specific directory paths
   path_provider:
-
   #location data
   geolocator:
   geocoding:
   geoflutterfire:
-
   #mapping
   #google_maps_flutter: ^2.0.5
   #syncfusion_flutter_maps:
-
-  rethinkdb_driver: "^2.3.2+2"
-
+  rethinkdb_dart:
+    git: git://github.com/rdash99/rethinkdb.git
   rflutter_alert:
-    git: git://github.com/RatelHub/rflutter_alert.git
   flutter_settings_screens: ^0.3.2-null-safety
   material_design_icons_flutter: ^5.0.6595
   community_material_icon: ^5.9.55
