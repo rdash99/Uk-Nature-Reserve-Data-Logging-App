@@ -5,16 +5,16 @@ import 'ui/home_route.dart';
 import 'ui/sign_up_route.dart';
 import 'ui/identification_route.dart';
 import 'ui/add_sightings_page.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Page_navigation/tabs_page.dart';
+import 'database/database_helper.dart';
 
-FirebaseAnalytics analytics;
 Future<void> main() async {
-  await WidgetsFlutterBinding.ensureInitialized();
-  analytics = FirebaseAnalytics();
-  await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize local database
+  final dbHelper = DatabaseHelper();
+  await dbHelper.database; // This will create the database if it doesn't exist
+  
   runApp(App());
 }
 

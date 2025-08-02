@@ -2,13 +2,10 @@ import 'package:app/Page_navigation/tabs_page.dart';
 import 'package:app/ui/home_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:html';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:geolocator/geolocator.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
+import '../database/database_helper.dart';
 
 class AddSightingsRoute extends StatefulWidget {
   @override
@@ -16,11 +13,10 @@ class AddSightingsRoute extends StatefulWidget {
 }
 
 class _AddSightingsRouteState extends State<AddSightingsRoute> {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final DatabaseHelper _dbHelper = DatabaseHelper();
 
-  final geo = Geoflutterfire();
-  String eng_Name;
-  String latin_Name;
+  String? eng_Name;
+  String? latin_Name;
   var location;
   bool bird_visible = false;
   bool butterfly_visible = true;
@@ -36,7 +32,6 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
   var finalTime = '';
   var latitude = '';
   var longitude = '';
-  var geoPoint = '';
   bool butterfly_number_error = false;
 
   check() {
@@ -56,13 +51,6 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
 
   @override
   Widget build(BuildContext context) {
-    // create a collection reference for butterfly sightings
-    CollectionReference Butterfly_Sightings =
-        FirebaseFirestore.instance.collection('Butterfly_Sightings');
-
-    // create a collection reference for birds sightings
-    CollectionReference Bird_Sightings =
-        FirebaseFirestore.instance.collection('Bird_Sightings');
 
     final titleSelector1 = Center(
         child: Text('Select animal group',
@@ -307,36 +295,34 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               //get location
               Position position = await Geolocator.getCurrentPosition(
                   desiredAccuracy: LocationAccuracy.best);
-              setState(() {
-                //get current date and time
-                dateTime = new DateTime.now().toString();
-                //process date and time
-                var dateParse = DateTime.parse(dateTime);
-                formattedDate =
-                    "${dateParse.day}-${dateParse.month}-${dateParse.year}";
-                finalDate = formattedDate.toString();
-                formattedTime =
-                    "${dateParse.hour}-${dateParse.minute}-${dateParse.second}";
-                finalTime = formattedTime.toString();
-                //process location
-                latitude = position.latitude.toString();
-                longitude = position.longitude.toString();
-              });
-              //create geoPoint
-              GeoFirePoint geoPoint = geo.point(
-                  latitude: position.latitude, longitude: position.longitude);
+              
+              //get current date and time
+              dateTime = DateTime.now().toString();
+              //process date and time
+              var dateParse = DateTime.parse(dateTime);
+              formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+              finalDate = formattedDate.toString();
+              formattedTime = "${dateParse.hour}-${dateParse.minute}-${dateParse.second}";
+              finalTime = formattedTime.toString();
+              //process location
+              latitude = position.latitude.toString();
+              longitude = position.longitude.toString();
 
-              //submit sighting
-              await Butterfly_Sightings.add({
-                'UserID': Globals.GlobalData.userID,
-                'Species': SpeciesButterfly,
-                'Number': Globals.GlobalData.butterflyNum,
-                'Date': finalDate,
-                'Time': finalTime,
-                'Location': {'Latitude': latitude, 'Longitude': longitude},
-                'LocationGeoPoint': geoPoint.data,
-              }).then((value) => print("Butterfly sighting Added")).catchError(
-                  (error) => print("Failed to add butterfly sighting: $error"));
+              //submit sighting to local database
+              final sighting = {
+                'user_id': Globals.GlobalData.userID,
+                'species': SpeciesButterfly,
+                'number_seen': Globals.GlobalData.butterflyNum,
+                'date': finalDate,
+                'time': finalTime,
+                'latitude': position.latitude,
+                'longitude': position.longitude,
+                'created_at': DateTime.now().toIso8601String(),
+              };
+              
+              await _dbHelper.insertButterflySighting(sighting);
+              print("Butterfly sighting saved locally");
+              
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => TabsPage()));
             },
