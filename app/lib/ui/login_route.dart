@@ -5,9 +5,8 @@ import 'home_route.dart';
 import 'sign_up_route.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import '../database/auth_service.dart';
 
 class LoginRoute extends StatefulWidget {
   @override
@@ -16,6 +15,7 @@ class LoginRoute extends StatefulWidget {
 
 class _LoginRouteState extends State<LoginRoute> {
   final _controller = TextEditingController();
+  final AuthService _authService = AuthService();
   bool _validate = false;
   bool _isVisible1 = false;
   bool _isVisible2 = false;
@@ -89,35 +89,57 @@ class _LoginRouteState extends State<LoginRoute> {
           style: TextStyle(color: Colors.white, fontSize: 16.0),
         ),
         color: Colors.blue,
-        //attempt to create account
+        //attempt to login
         onPressed: () async {
           setState(() {
             _controller.text.isEmpty ? _validate = true : _validate = false;
           });
-          try {
-            UserCredential userCredential = await FirebaseAuth.instance
-                .signInWithEmailAndPassword(
-                    email: Globals.GlobalData.email,
-                    password: Globals.GlobalData.password);
+          
+          final result = await _authService.signIn(
+            email: Globals.GlobalData.email,
+            password: Globals.GlobalData.password,
+          );
+          
+          if (result.success) {
+            Globals.GlobalData.userID = result.userId!;
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => TabsPage()));
-          } on FirebaseAuthException catch (e) {
-            if (e.code == 'user-not-found') {
+          } else {
+            if (result.error == 'user-not-found') {
               print('No user found for that email.');
               setState(() {
                 _isVisible1 = false;
                 _isVisible2 = true;
               });
-            } else if (e.code == 'wrong-password.') {
+            } else if (result.error == 'wrong-password') {
               print('Incorrect password!');
               setState(() {
                 _isVisible2 = false;
                 _isVisible1 = true;
               });
+            } else {
+              print('Login error: ${result.error}');
+              String errorMessage = 'Login failed!';
+              if (result.error == 'database-error') {
+                errorMessage = 'Database initialization failed. Please check your connection or try again.';
+              }
+              setState(() {
+                _isVisible2 = false;
+                _isVisible1 = true;
+              });
+              
+              // Show more detailed error for database issues
+              if (result.error == 'database-error') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(errorMessage),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 5),
+                  ),
+                );
+              }
             }
-          } catch (e) {
-            print(e);
           }
         },
       ),

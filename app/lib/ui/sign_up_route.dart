@@ -1,15 +1,11 @@
-import 'dart:html';
 import 'package:app/Page_navigation/tabs_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'login_route.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
 import 'home_route.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-FirebaseAuth auth = FirebaseAuth.instance;
+import '../database/auth_service.dart';
 
 class SignUpRoute extends StatefulWidget {
   @override
@@ -18,6 +14,7 @@ class SignUpRoute extends StatefulWidget {
 
 class _SignUpRouteState extends State<SignUpRoute> {
   final _controller = TextEditingController();
+  final AuthService _authService = AuthService();
   bool _validate = false;
   bool _isVisible1 = false;
   bool _isVisible2 = false;
@@ -32,19 +29,6 @@ class _SignUpRouteState extends State<SignUpRoute> {
 
   @override
   Widget build(BuildContext context) {
-    //store user data
-    CollectionReference users = FirebaseFirestore.instance.collection('Users');
-    Future<void> addUser() {
-      return users
-          .add({
-            'First_name': Globals.GlobalData.firstName,
-            'surname': Globals.GlobalData.surname,
-            'UserId': Globals.GlobalData.userID
-          })
-          .then((value) => print("User Added"))
-          .catchError((error) => print("Failed to add user: $error"));
-    }
-
     //create first name input
     final firstName = Padding(
       padding: const EdgeInsets.all(16.0),
@@ -189,40 +173,44 @@ class _SignUpRouteState extends State<SignUpRoute> {
           setState(() {
             _controller.text.isEmpty ? _validate = true : _validate = false;
           });
-          try {
-            UserCredential userCredential = await FirebaseAuth.instance
-                .createUserWithEmailAndPassword(
-                    email: Globals.GlobalData.email,
-                    password: Globals.GlobalData.password);
-
-            Globals.GlobalData.userID = auth.currentUser.uid;
-            FirebaseFirestore.instance
-                .collection('Users')
-                .doc(Globals.GlobalData.userID)
-                .set({
-              "FirstName": Globals.GlobalData.firstName,
-              "Surname": Globals.GlobalData.surname,
-              "Email": Globals.GlobalData.email,
-            });
+          
+          final result = await _authService.signUp(
+            email: Globals.GlobalData.email,
+            password: Globals.GlobalData.password,
+            firstName: Globals.GlobalData.firstName,
+            surname: Globals.GlobalData.surname,
+          );
+          
+          if (result.success) {
+            Globals.GlobalData.userID = result.userId!;
             // go to home screen
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => TabsPage()));
-          } on FirebaseAuthException catch (e) {
-            if (e.code == 'weak-password') {
+          } else {
+            if (result.error == 'weak-password') {
               print('The password provided is too weak.');
               setState(() {
                 _isVisible3 = true;
                 _isVisible4 = false;
               });
-            } else if (e.code == 'email-already-in-use') {
+            } else if (result.error == 'email-already-in-use') {
               print('An account already exists for that email.');
               setState(() {
                 _isVisible4 = true;
                 _isVisible3 = false;
               });
+            } else {
+              print('Registration error: ${result.error}');
+              if (result.error == 'database-error') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Database initialization failed. Please check your connection or try again.'),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 5),
+                  ),
+                );
+              }
             }
-          } catch (e) {
-            print(e);
           }
         },
       ),

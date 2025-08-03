@@ -18,49 +18,41 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  async: ^2.5.0-nullsafety.3
-  rxdart: ^0.25.0
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
   
   #spinning animations
-  flutter_spinkit: ^5.0.0
+  flutter_spinkit: ^5.2.0
   
-  #main firebase plugin
-  firebase_core: ^0.7.0
-  
-  #user auth
-  firebase_auth: ^0.20.0+1
-  
-  #analytics
-  firebase_analytics: ^7.0.1
-  firebase_performance: ^0.5.0+1
-
   #validation
-  email_validator: ^1.0.4
+  email_validator: ^2.1.17
 
-  #storage
-  cloud_firestore: ^0.16.0
-  firebase_storage: ^7.0.0 
+  #local storage
+  sqflite: ^2.3.0
+  sqflite_common_ffi: ^2.3.0
+  sqflite_common_ffi_web: ^0.4.2
+  shared_preferences: ^2.2.2
 
   # For OS-specific directory paths
-  path_provider: ^2.0.1
+  path_provider: ^2.1.1
 
   #location data
-  geolocator: ^6.2.0
-  geocoding: ^1.0.5
-  geoflutterfire: ^2.2.2
+  geolocator: ^10.1.0
+  geocoding: ^2.1.1
 
-  #mapping
-  google_maps_flutter:
+  #mapping - offline capable
+  flutter_map: ^6.1.0
+  latlong2: ^0.8.1
+
+  # Crypto for password hashing
+  crypto: ^3.0.3
 
 dev_dependencies:
   build_runner:
@@ -79,6 +71,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+  assets:
+    - web/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see
