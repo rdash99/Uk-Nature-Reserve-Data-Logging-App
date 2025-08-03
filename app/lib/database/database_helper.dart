@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   static Database? _database;
+  static bool _initialized = false;
 
   DatabaseHelper._internal();
 
@@ -12,14 +16,40 @@ class DatabaseHelper {
     return _instance;
   }
 
+  /// Initialize the database factory for the current platform
+  static void _initializeDatabaseFactory() {
+    if (_initialized) return;
+    
+    if (kIsWeb) {
+      // For web platforms, use FFI database factory
+      databaseFactory = databaseFactoryFfi;
+    } else if (Platform.isWindows || Platform.isLinux) {
+      // For desktop platforms, use FFI database factory
+      databaseFactory = databaseFactoryFfi;
+      sqfliteFfiInit();
+    }
+    // For mobile platforms (Android/iOS), the default sqflite factory is used
+    
+    _initialized = true;
+  }
+
   Future<Database> get database async {
+    _initializeDatabaseFactory();
     if (_database != null) return _database!;
     _database = await _initDB();
     return _database!;
   }
 
   Future<Database> _initDB() async {
-    String path = join(await getDatabasesPath(), 'nature_reserve.db');
+    String path;
+    if (kIsWeb) {
+      // For web platforms, use a simple filename
+      path = 'nature_reserve.db';
+    } else {
+      // For mobile/desktop platforms, use the standard database path
+      path = join(await getDatabasesPath(), 'nature_reserve.db');
+    }
+    
     return await openDatabase(
       path,
       version: 1,
