@@ -37,7 +37,7 @@ dependencies:
   #local storage
   sqflite: ^2.3.0
   sqflite_common_ffi: ^2.3.0
-  sqflite_common_ffi_web: ^0.4.0
+  sqflite_common_ffi_web: ^0.4.2
   shared_preferences: ^2.2.2
 
   # For OS-specific directory paths
@@ -70,6 +70,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+  assets:
+    - web/
   
 
   # An image asset can refer to one or more resolution-specific "variants", see

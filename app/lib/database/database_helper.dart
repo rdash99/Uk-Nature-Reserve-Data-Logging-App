@@ -21,24 +21,42 @@ class DatabaseHelper {
   static void _initializeDatabaseFactory() {
     if (_initialized) return;
     
-    if (kIsWeb) {
-      // For web platforms, use the web-specific FFI database factory
-      databaseFactory = databaseFactoryFfiWeb;
-    } else if (Platform.isWindows || Platform.isLinux) {
-      // For desktop platforms, use FFI database factory
-      databaseFactory = databaseFactoryFfi;
-      sqfliteFfiInit();
+    try {
+      if (kIsWeb) {
+        // For web platforms, use the web-specific FFI database factory
+        databaseFactory = databaseFactoryFfiWeb;
+        print('DatabaseHelper: Initialized for web platform with databaseFactoryFfiWeb');
+      } else if (Platform.isWindows || Platform.isLinux) {
+        // For desktop platforms, use FFI database factory
+        databaseFactory = databaseFactoryFfi;
+        sqfliteFfiInit();
+        print('DatabaseHelper: Initialized for desktop platform with databaseFactoryFfi');
+      } else {
+        // For mobile platforms (Android/iOS), the default sqflite factory is used
+        print('DatabaseHelper: Using default sqflite factory for mobile platform');
+      }
+    } catch (e) {
+      print('DatabaseHelper: Error during initialization: $e');
+      rethrow;
     }
-    // For mobile platforms (Android/iOS), the default sqflite factory is used
     
     _initialized = true;
   }
 
   Future<Database> get database async {
-    _initializeDatabaseFactory();
-    if (_database != null) return _database!;
-    _database = await _initDB();
-    return _database!;
+    try {
+      _initializeDatabaseFactory();
+      if (_database != null) return _database!;
+      _database = await _initDB();
+      return _database!;
+    } catch (e) {
+      print('DatabaseHelper: Error getting database: $e');
+      if (kIsWeb) {
+        print('DatabaseHelper: Web platform SQLite setup issue. Please check WEB_SQLITE_SETUP.md');
+        print('DatabaseHelper: Make sure sqflite_sw.js and sqlite3.wasm are in the web/ directory');
+      }
+      rethrow;
+    }
   }
 
   Future<Database> _initDB() async {
@@ -46,6 +64,9 @@ class DatabaseHelper {
     if (kIsWeb) {
       // For web platforms, use a simple filename
       path = 'nature_reserve.db';
+      
+      // Check if web SQLite binaries are available
+      await _checkWebSQLiteSetup();
     } else {
       // For mobile/desktop platforms, use the standard database path
       path = join(await getDatabasesPath(), 'nature_reserve.db');
@@ -56,6 +77,15 @@ class DatabaseHelper {
       version: 1,
       onCreate: _createDB,
     );
+  }
+
+  /// Check if web SQLite setup is properly configured
+  Future<void> _checkWebSQLiteSetup() async {
+    if (!kIsWeb) return;
+    
+    print('DatabaseHelper: Checking web SQLite setup...');
+    // The actual files will be checked by the sqflite_common_ffi_web package
+    // This method serves as a placeholder for future setup validation
   }
 
   Future<void> _createDB(Database db, int version) async {
