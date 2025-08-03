@@ -11,9 +11,8 @@ import 'database/database_helper.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize local database
-  final dbHelper = DatabaseHelper();
-  await dbHelper.database; // This will create the database if it doesn't exist
+  // Database will be initialized lazily when first accessed
+  // This prevents the app from hanging during startup if there are SQLite issues
   
   runApp(App());
 }

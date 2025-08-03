@@ -201,6 +201,15 @@ class _SignUpRouteState extends State<SignUpRoute> {
               });
             } else {
               print('Registration error: ${result.error}');
+              if (result.error == 'database-error') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Database initialization failed. Please check your connection or try again.'),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 5),
+                  ),
+                );
+              }
             }
           }
         },

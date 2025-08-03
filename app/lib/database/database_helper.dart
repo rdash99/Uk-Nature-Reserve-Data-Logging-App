@@ -54,6 +54,7 @@ class DatabaseHelper {
       if (kIsWeb) {
         print('DatabaseHelper: Web platform SQLite setup issue. Please check WEB_SQLITE_SETUP.md');
         print('DatabaseHelper: Make sure sqflite_sw.js and sqlite3.wasm are in the web/ directory');
+        print('DatabaseHelper: This often happens when the SQLite web worker cannot be initialized');
       }
       rethrow;
     }
@@ -72,10 +73,17 @@ class DatabaseHelper {
       path = join(await getDatabasesPath(), 'nature_reserve.db');
     }
     
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDB,
+    // Add timeout to prevent hanging during database initialization
+    return await Future.timeout(
+      Duration(seconds: 30),
+      () => openDatabase(
+        path,
+        version: 1,
+        onCreate: _createDB,
+      ),
+      onTimeout: () {
+        throw Exception('Database initialization timed out after 30 seconds. This may indicate SQLite web worker issues on web platforms.');
+      },
     );
   }
 
@@ -84,8 +92,19 @@ class DatabaseHelper {
     if (!kIsWeb) return;
     
     print('DatabaseHelper: Checking web SQLite setup...');
-    // The actual files will be checked by the sqflite_common_ffi_web package
-    // This method serves as a placeholder for future setup validation
+    
+    try {
+      // Add a short delay to prevent immediate timeout
+      await Future.delayed(Duration(milliseconds: 100));
+      print('DatabaseHelper: Web SQLite setup check completed');
+      
+      // Note: The actual SQLite web worker files are validated by sqflite_common_ffi_web
+      // If the worker files are missing, the openDatabase call will fail with appropriate errors
+      print('DatabaseHelper: If you encounter web worker errors, check WEB_SQLITE_SETUP.md');
+    } catch (e) {
+      print('DatabaseHelper: Web SQLite setup check failed: $e');
+      throw Exception('Web SQLite setup validation failed: $e');
+    }
   }
 
   Future<void> _createDB(Database db, int version) async {

@@ -73,7 +73,8 @@ class AuthService {
         return AuthResult(success: false, error: 'registration-failed');
       }
     } catch (e) {
-      return AuthResult(success: false, error: 'unknown-error');
+      print('AuthService: Sign up error: $e');
+      return AuthResult(success: false, error: 'database-error');
     }
   }
 
@@ -99,7 +100,8 @@ class AuthService {
         }
       }
     } catch (e) {
-      return AuthResult(success: false, error: 'unknown-error');
+      print('AuthService: Sign in error: $e');
+      return AuthResult(success: false, error: 'database-error');
     }
   }
 

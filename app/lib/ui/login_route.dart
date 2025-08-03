@@ -120,10 +120,25 @@ class _LoginRouteState extends State<LoginRoute> {
               });
             } else {
               print('Login error: ${result.error}');
+              String errorMessage = 'Login failed!';
+              if (result.error == 'database-error') {
+                errorMessage = 'Database initialization failed. Please check your connection or try again.';
+              }
               setState(() {
                 _isVisible2 = false;
                 _isVisible1 = true;
               });
+              
+              // Show more detailed error for database issues
+              if (result.error == 'database-error') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(errorMessage),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 5),
+                  ),
+                );
+              }
             }
           }
         },
