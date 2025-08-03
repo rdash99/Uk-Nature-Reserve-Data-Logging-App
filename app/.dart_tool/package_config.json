@@ -15,9 +15,9 @@
     },
     {
       "name": "args",
-      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/args-2.0.0",
+      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/args-2.7.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.3"
     },
     {
       "name": "async",
@@ -136,6 +136,12 @@
     {
       "name": "dart_style",
       "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/dart_style-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "dev_build",
+      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/dev_build-1.1.2+11",
       "packageUri": "lib/",
       "languageVersion": "3.7"
     },
@@ -320,6 +326,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "http",
+      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/http-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "http_multi_server",
       "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/http_multi_server-3.2.2",
       "packageUri": "lib/",
@@ -459,7 +471,7 @@
     },
     {
       "name": "pool",
-      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/pool-1.5.0",
+      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/pool-1.5.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -468,6 +480,12 @@
       "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/process-4.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "process_run",
+      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/process_run-1.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
     },
     {
       "name": "pub_semver",
@@ -578,6 +596,18 @@
       "languageVersion": "3.8"
     },
     {
+      "name": "sqflite_common_ffi",
+      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/sqflite_common_ffi-2.3.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
+      "name": "sqflite_common_ffi_web",
+      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/sqflite_common_ffi_web-0.4.5+4",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
       "name": "sqflite_darwin",
       "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/sqflite_darwin-2.4.2",
       "packageUri": "lib/",
@@ -588,6 +618,12 @@
       "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/sqflite_platform_interface-2.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
+    },
+    {
+      "name": "sqlite3",
+      "rootUri": "file:///Users/rowandash/.pub-cache/hosted/pub.dev/sqlite3-2.4.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "stack_trace",
