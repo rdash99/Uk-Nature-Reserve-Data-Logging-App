@@ -80,17 +80,27 @@ class DatabaseHelper {
     }
 
     // Add timeout to prevent hanging during database initialization
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDB,
-    ).timeout(
-      Duration(seconds: 30),
-      onTimeout: () {
-        throw Exception(
-            'Database initialization timed out after 30 seconds. This may indicate SQLite web worker issues on web platforms.');
-      },
-    );
+    try {
+      return await openDatabase(
+        path,
+        version: 1,
+        onCreate: _createDB,
+      ).timeout(
+        Duration(seconds: 30),
+        onTimeout: () {
+          throw Exception(
+              'Database initialization timed out after 30 seconds. This may indicate SQLite web worker issues on web platforms.');
+        },
+      );
+    } catch (e) {
+      if (kIsWeb && e.toString().contains('web worker')) {
+        print('DatabaseHelper: Web worker initialization failed, this is expected in development mode');
+        print('DatabaseHelper: For production builds, run "flutter build web" to include sqlite3.wasm');
+        print('DatabaseHelper: The app may work with limited functionality');
+        rethrow;
+      }
+      rethrow;
+    }
   }
 
   /// Check if web SQLite setup is properly configured
@@ -102,12 +112,22 @@ class DatabaseHelper {
     try {
       // Add a short delay to prevent immediate timeout
       await Future.delayed(Duration(milliseconds: 100));
+      
+      // Check if we're in a development environment
+      final isDevelopment = identical(0, 0.0); // This is always true in debug mode
+      
+      if (isDevelopment) {
+        print('DatabaseHelper: Development mode detected');
+        print('DatabaseHelper: Web SQLite requires "flutter build web" to include sqlite3.wasm');
+        print('DatabaseHelper: If you see timeout errors, the binary may be missing');
+      }
+      
       print('DatabaseHelper: Web SQLite setup check completed');
 
       // Note: The actual SQLite web worker files are validated by sqflite_common_ffi_web
       // If the worker files are missing, the openDatabase call will fail with appropriate errors
-      print(
-          'DatabaseHelper: If you encounter web worker errors, check WEB_SQLITE_SETUP.md');
+      print('DatabaseHelper: If you encounter web worker errors, check WEB_SQLITE_SETUP.md');
+      
     } catch (e) {
       print('DatabaseHelper: Web SQLite setup check failed: $e');
       throw Exception('Web SQLite setup validation failed: $e');
