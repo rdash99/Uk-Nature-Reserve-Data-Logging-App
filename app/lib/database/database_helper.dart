@@ -20,26 +20,29 @@ class DatabaseHelper {
   /// Initialize the database factory for the current platform
   static void _initializeDatabaseFactory() {
     if (_initialized) return;
-    
+
     try {
       if (kIsWeb) {
         // For web platforms, use the web-specific FFI database factory
         databaseFactory = databaseFactoryFfiWeb;
-        print('DatabaseHelper: Initialized for web platform with databaseFactoryFfiWeb');
+        print(
+            'DatabaseHelper: Initialized for web platform with databaseFactoryFfiWeb');
       } else if (Platform.isWindows || Platform.isLinux) {
         // For desktop platforms, use FFI database factory
         databaseFactory = databaseFactoryFfi;
         sqfliteFfiInit();
-        print('DatabaseHelper: Initialized for desktop platform with databaseFactoryFfi');
+        print(
+            'DatabaseHelper: Initialized for desktop platform with databaseFactoryFfi');
       } else {
         // For mobile platforms (Android/iOS), the default sqflite factory is used
-        print('DatabaseHelper: Using default sqflite factory for mobile platform');
+        print(
+            'DatabaseHelper: Using default sqflite factory for mobile platform');
       }
     } catch (e) {
       print('DatabaseHelper: Error during initialization: $e');
       rethrow;
     }
-    
+
     _initialized = true;
   }
 
@@ -52,9 +55,12 @@ class DatabaseHelper {
     } catch (e) {
       print('DatabaseHelper: Error getting database: $e');
       if (kIsWeb) {
-        print('DatabaseHelper: Web platform SQLite setup issue. Please check WEB_SQLITE_SETUP.md');
-        print('DatabaseHelper: Make sure sqflite_sw.js and sqlite3.wasm are in the web/ directory');
-        print('DatabaseHelper: This often happens when the SQLite web worker cannot be initialized');
+        print(
+            'DatabaseHelper: Web platform SQLite setup issue. Please check WEB_SQLITE_SETUP.md');
+        print(
+            'DatabaseHelper: Make sure sqflite_sw.js and sqlite3.wasm are in the web/ directory');
+        print(
+            'DatabaseHelper: This often happens when the SQLite web worker cannot be initialized');
       }
       rethrow;
     }
@@ -65,24 +71,24 @@ class DatabaseHelper {
     if (kIsWeb) {
       // For web platforms, use a simple filename
       path = 'nature_reserve.db';
-      
+
       // Check if web SQLite binaries are available
       await _checkWebSQLiteSetup();
     } else {
       // For mobile/desktop platforms, use the standard database path
       path = join(await getDatabasesPath(), 'nature_reserve.db');
     }
-    
+
     // Add timeout to prevent hanging during database initialization
-    return await Future.timeout(
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: _createDB,
+    ).timeout(
       Duration(seconds: 30),
-      () => openDatabase(
-        path,
-        version: 1,
-        onCreate: _createDB,
-      ),
       onTimeout: () {
-        throw Exception('Database initialization timed out after 30 seconds. This may indicate SQLite web worker issues on web platforms.');
+        throw Exception(
+            'Database initialization timed out after 30 seconds. This may indicate SQLite web worker issues on web platforms.');
       },
     );
   }
@@ -90,17 +96,18 @@ class DatabaseHelper {
   /// Check if web SQLite setup is properly configured
   Future<void> _checkWebSQLiteSetup() async {
     if (!kIsWeb) return;
-    
+
     print('DatabaseHelper: Checking web SQLite setup...');
-    
+
     try {
       // Add a short delay to prevent immediate timeout
       await Future.delayed(Duration(milliseconds: 100));
       print('DatabaseHelper: Web SQLite setup check completed');
-      
+
       // Note: The actual SQLite web worker files are validated by sqflite_common_ffi_web
       // If the worker files are missing, the openDatabase call will fail with appropriate errors
-      print('DatabaseHelper: If you encounter web worker errors, check WEB_SQLITE_SETUP.md');
+      print(
+          'DatabaseHelper: If you encounter web worker errors, check WEB_SQLITE_SETUP.md');
     } catch (e) {
       print('DatabaseHelper: Web SQLite setup check failed: $e');
       throw Exception('Web SQLite setup validation failed: $e');
@@ -157,14 +164,16 @@ class DatabaseHelper {
   Future<int> insertUser(Map<String, dynamic> user) async {
     final db = await database;
     try {
-      await db.insert('users', user, conflictAlgorithm: ConflictAlgorithm.abort);
+      await db.insert('users', user,
+          conflictAlgorithm: ConflictAlgorithm.abort);
       return 1; // Success
     } catch (e) {
       return 0; // Failed (likely duplicate email)
     }
   }
 
-  Future<Map<String, dynamic>?> getUser(String email, String passwordHash) async {
+  Future<Map<String, dynamic>?> getUser(
+      String email, String passwordHash) async {
     final db = await database;
     final result = await db.query(
       'users',
@@ -190,7 +199,8 @@ class DatabaseHelper {
     return await db.insert('butterfly_sightings', sighting);
   }
 
-  Future<List<Map<String, dynamic>>> getButterflySightings(String userId) async {
+  Future<List<Map<String, dynamic>>> getButterflySightings(
+      String userId) async {
     final db = await database;
     return await db.query(
       'butterfly_sightings',
@@ -227,11 +237,11 @@ class DatabaseHelper {
   // Export data for potential future sync
   Future<Map<String, dynamic>> exportUserData(String userId) async {
     final db = await database;
-    
+
     final user = await db.query('users', where: 'id = ?', whereArgs: [userId]);
     final butterflySightings = await getButterflySightings(userId);
     final birdSightings = await getBirdSightings(userId);
-    
+
     return {
       'user': user.isNotEmpty ? user.first : null,
       'butterfly_sightings': butterflySightings,
