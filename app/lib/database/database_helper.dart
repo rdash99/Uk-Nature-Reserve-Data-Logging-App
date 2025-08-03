@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
@@ -21,8 +22,8 @@ class DatabaseHelper {
     if (_initialized) return;
     
     if (kIsWeb) {
-      // For web platforms, use FFI database factory
-      databaseFactory = databaseFactoryFfi;
+      // For web platforms, use the web-specific FFI database factory
+      databaseFactory = databaseFactoryFfiWeb;
     } else if (Platform.isWindows || Platform.isLinux) {
       // For desktop platforms, use FFI database factory
       databaseFactory = databaseFactoryFfi;
