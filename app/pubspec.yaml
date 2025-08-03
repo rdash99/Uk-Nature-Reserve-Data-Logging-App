@@ -47,8 +47,9 @@ dependencies:
   geolocator: ^10.1.0
   geocoding: ^2.1.1
 
-  #mapping
-  google_maps_flutter: ^2.5.0
+  #mapping - offline capable
+  flutter_map: ^6.1.0
+  latlong2: ^0.8.1
 
   # Crypto for password hashing
   crypto: ^3.0.3

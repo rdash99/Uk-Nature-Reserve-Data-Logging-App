@@ -7,7 +7,8 @@ import 'package:geolocator/geolocator.dart';
 import 'add_sightings_page.dart';
 import 'package:app/Page_navigation/tab_navigation_items.dart';
 import 'package:app/Global_stuff/GlobalVars.dart' as Globals;
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import '../database/auth_service.dart';
 
 class HomeRoute extends StatefulWidget {
@@ -23,13 +24,9 @@ class _HomeRouteState extends State<HomeRoute> {
   String? _currentUserId;
   String? _currentUserEmail;
 
-  //create new google maps instance
-  GoogleMapController? mapContoller;
+  // Flutter Map controller and center location
+  final MapController _mapController = MapController();
   final LatLng _center = const LatLng(45.521563, -122.677433);
-  
-  void _onMapCreated(GoogleMapController controller) {
-    mapContoller = controller;
-  }
   
   @override
   void initState() {
@@ -114,13 +111,49 @@ class _HomeRouteState extends State<HomeRoute> {
           ],
         ),
       ),
-      //display map
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.0,
+      //display offline-capable map using OpenStreetMap
+      body: FlutterMap(
+        mapController: _mapController,
+        options: MapOptions(
+          initialCenter: _center,
+          initialZoom: 11.0,
+          // Enable interaction
+          interactionOptions: const InteractionOptions(
+            flags: InteractiveFlag.all,
+          ),
         ),
+        children: [
+          // OpenStreetMap tile layer - works offline when tiles are cached
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            subdomains: const ['a', 'b', 'c'],
+            userAgentPackageName: 'com.example.app',
+            // Enable caching for offline support
+            tileBuilder: (context, tileWidget, tile) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.withOpacity(0.2), width: 0.5),
+                ),
+                child: tileWidget,
+              );
+            },
+          ),
+          // Marker layer for points of interest
+          MarkerLayer(
+            markers: [
+              Marker(
+                point: _center,
+                width: 40,
+                height: 40,
+                child: const Icon(
+                  Icons.location_pin,
+                  color: Colors.red,
+                  size: 40,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
