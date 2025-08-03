@@ -51,7 +51,6 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
 
   @override
   Widget build(BuildContext context) {
-
     final titleSelector1 = Center(
         child: Text('Select animal group',
             style: TextStyle(color: Colors.blue, fontSize: 16.0)));
@@ -64,12 +63,14 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
           iconSize: 24,
           elevation: 16,
           style: TextStyle(color: Colors.deepPurple),
-          onChanged: (String newValue) {
-            setState(() {
-              dropdownValue = newValue;
-              Globals.GlobalData.butterBird = dropdownValue;
-              check();
-            });
+          onChanged: (String? newValue) {
+            if (newValue != null) {
+              setState(() {
+                dropdownValue = newValue;
+                Globals.GlobalData.butterBird = dropdownValue;
+                check();
+              });
+            }
           },
           items: <String>['Butterflies']
               .map<DropdownMenuItem<String>>((String value) {
@@ -98,12 +99,14 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               iconSize: 24,
               elevation: 16,
               style: TextStyle(color: Colors.deepPurple),
-              onChanged: (String newValue) {
-                setState(() {
-                  dropdownValue1 = newValue;
-                  SpeciesButterfly = newValue;
-                  check();
-                });
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    dropdownValue1 = newValue;
+                    SpeciesButterfly = newValue;
+                    check();
+                  });
+                }
               },
               items: <String>[
                 'Adonis Blue',
@@ -191,11 +194,13 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               iconSize: 24,
               elevation: 16,
               style: TextStyle(color: Colors.deepPurple),
-              onChanged: (String newValue) {
-                setState(() {
-                  dropdownValue2 = newValue;
-                  check();
-                });
+              onChanged: (String? newValue) {
+                if (newValue != null) {
+                  setState(() {
+                    dropdownValue2 = newValue;
+                    check();
+                  });
+                }
               },
               items: <String>['Birds']
                   .map<DropdownMenuItem<String>>((String value) {
@@ -295,14 +300,16 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
               //get location
               Position position = await Geolocator.getCurrentPosition(
                   desiredAccuracy: LocationAccuracy.best);
-              
+
               //get current date and time
               dateTime = DateTime.now().toString();
               //process date and time
               var dateParse = DateTime.parse(dateTime);
-              formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+              formattedDate =
+                  "${dateParse.day}-${dateParse.month}-${dateParse.year}";
               finalDate = formattedDate.toString();
-              formattedTime = "${dateParse.hour}-${dateParse.minute}-${dateParse.second}";
+              formattedTime =
+                  "${dateParse.hour}-${dateParse.minute}-${dateParse.second}";
               finalTime = formattedTime.toString();
               //process location
               latitude = position.latitude.toString();
@@ -319,10 +326,10 @@ class _AddSightingsRouteState extends State<AddSightingsRoute> {
                 'longitude': position.longitude,
                 'created_at': DateTime.now().toIso8601String(),
               };
-              
+
               await _dbHelper.insertButterflySighting(sighting);
               print("Butterfly sighting saved locally");
-              
+
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => TabsPage()));
             },
